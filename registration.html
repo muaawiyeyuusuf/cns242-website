@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.
+css" />
+</head>
+
+<body>
+    <nav class="n2">
+        <img src="logo.PNG" alt="">
+        <div class="navi">
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a href="abbout.html">About</a></li>
+                <li><a href="registration.html">Course</a></li>
+                <li><a href="lesson.html">Lessons</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    </section>
+    
+    <section id="registration">
+        <div class="reminder">
+            <p>Get class lessons for free</p>
+            <h1>Register To Get It</h1>
+            <div class="time">
+                <div class="date">18 <br> day</div>
+                <div class="date">24 <br> Hours</div>
+                <div class="date">60 <br> minutes</div>
+                <div class="date">60 <br> seconds</div>
+            </div>
+        </div>
+        <div class="from">
+            <h3>Get Your Free Account NOW!</h3>
+            <input type="text" placeholder="username">
+            <input type="text" placeholder="Email Address" id="reg-email" required>
+            <input type="password" placeholder="password" id="reg-password">
+            <div class="btt">
+                <a class="green" id="submitBtn" href="#">Submit</a>
+            </div>
+            <div id="error" style="color: red; margin-top: 10px;"></div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const password = document.getElementById("reg-password").value;
+            const email = document.getElementById("reg-email").value;
+            const correctPassword = "cns242358";
+            const errorDiv = document.getElementById("error");
+
+            // Email validation: Waa inuu leeyahay @ iyo ugu yaraan 1 .
+            const emailValid = email.includes("@gmail.com") && email.includes(".");
+
+            if (!emailValid) {
+                errorDiv.innerText = "encorrect inform try agen";
+                return;
+            }
+
+            if (password === correctPassword) {
+                window.location.href = "course.html";
+            } else {
+                errorDiv.innerText = "Password-ka waa khaldan yahay!";
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
