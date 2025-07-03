@@ -1,4 +1,5 @@
- /* Reset and basics */
+
+        /* Reset and basics */
         * {
             margin: 0;
             padding: 0;
@@ -69,6 +70,7 @@
             font-size: 3.5rem;
             margin-bottom: 15px;
             letter-spacing: 1.2px;
+            color: white;
         }
 
         #home p {
@@ -937,4 +939,196 @@ section.courses h2 {
     flex-direction: column;
     gap: 15px;
   }
+}
+
+/* about */
+
+ /* Body and General */
+ 
+/* Body with smooth gradient background and subtle animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body.boda {
+  background: linear-gradient(-45deg, #0b1d3b, #1a2a6c, #162f40, #0f2133);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: #cbd5e1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 30px 25px;
+  line-height: 1.75;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  backdrop-filter: saturate(180%) blur(12px);
+}
+
+/* Page header */
+.page-heade {
+  text-align: center;
+  border-bottom: 3px solid #4caf50;
+  padding-bottom: 22px;
+  margin-bottom: 48px;
+  transition: border-color 0.5s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.page-header:hover {
+  border-color: #a5d6a7;
+}
+
+.page-heade h1 {
+  font-size: 3.4rem;
+  color: #4caf50;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  transition: color 0.4s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.page-header h1:hover {
+  color: #a5d6a7;
+}
+
+.page-header p {
+  font-size: 1.3rem;
+  color: #a8b7cc;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: default;
+  transition: color 0.4s ease;
+  user-select: none;
+}
+
+.page-header p:hover {
+  color: #c3d9c8;
+}
+
+/* Navigation styles */
+.top-nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 48px;
+  font-weight: 700;
+  user-select: none;
+}
+
+.top-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 1.05rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4));
+}
+
+.top-nav a:hover {
+  background-color: #4caf50;
+  color: #0b1d3b;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.75);
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5));
+}
+
+.top-nav a.active {
+  background-color: #4caf50;
+  color: #0b1d3b;
+  cursor: default;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.9);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+}
+
+/* About content paragraphs */
+.about-content p {
+  font-size: 1.15rem;
+  margin-bottom: 26px;
+  text-align: justify;
+  letter-spacing: 0.04em;
+  cursor: default;
+  color: #d6e7f0;
+  transition: color 0.35s ease;
+}
+
+.about-content p:hover {
+  color: #a5d6a7;
+}
+
+/* E-Reading Section */
+.e-reading {
+  background-color: rgba(20, 42, 92, 0.85);
+  padding: 30px 28px;
+  border-radius: 14px;
+  box-shadow: 0 0 28px rgba(76, 175, 80, 0.6);
+  margin-top: 60px;
+  color: #c0d6e4;
+  transition: box-shadow 0.5s ease;
+  cursor: default;
+}
+
+.e-reading:hover {
+  box-shadow: 0 0 48px rgba(76, 175, 80, 0.9);
+}
+
+.e-reading h2 {
+  color: #4caf50;
+  margin-bottom: 28px;
+  font-size: 2.3rem;
+  letter-spacing: 1.4px;
+  border-bottom: 4px solid #4caf50;
+  padding-bottom: 12px;
+  transition: color 0.5s ease;
+  user-select: none;
+}
+
+.e-reading h2:hover {
+  color: #a5d6a7;
+}
+
+.e-reading article p {
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  line-height: 1.7;
+  text-align: justify;
+  letter-spacing: 0.03em;
+  color: #c8d6e8;
+  transition: color 0.35s ease;
+}
+
+.e-reading article p:hover {
+  color: #81c784;
+}
+
+/* Copyright paragraph */
+.copyright-paragraph {
+  margin-top: 70px;
+  font-size: 0.9rem;
+  color: #7a8c9f;
+  text-align: center;
+  padding: 18px 12px;
+  border-top: 1.8px solid #4caf50;
+  cursor: default;
+  transition: color 0.35s ease;
+  user-select: none;
+}
+
+.copyright-paragraph:hover {
+  color: #a5d6a7;
 }
