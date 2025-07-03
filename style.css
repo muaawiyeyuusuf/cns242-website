@@ -1,3 +1,82 @@
+/* ✅ RESPONSIVE FIX for mobile devices */
+@media (max-width: 768px) {
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+    width: 100%;
+    position: static;
+  }
+
+  nav .navi ul {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0;
+  }
+
+  nav .navi ul li {
+    margin: 10px 0;
+  }
+
+  #home {
+    padding: 60px 10px;
+    height: auto;
+    background-position: center;
+  }
+
+  #home h2 {
+    font-size: 2.5rem;
+  }
+
+  #home p {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .btt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  #home a {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  #features h1 {
+    font-size: 2rem;
+  }
+
+  #features p {
+    font-size: 1rem;
+  }
+
+  #features .fea-box {
+    font-size: 1.3rem;
+  }
+
+  .trusted-guides h1 {
+    font-size: 2rem;
+  }
+
+  .trusted-guides p {
+    font-size: 0.95rem;
+  }
+
+  .guide-card img {
+    width: 120px;
+    height: 120px;
+  }
+
+}
+
+
 nav {
 
   position: fixed;
