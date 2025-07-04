@@ -21,16 +21,17 @@ css" />
 </head>
 
 <body class="bodyc">
-  <nav class="n3">
-    <img src="logo.PNG" alt="">
-    <div class="navi">
-      <ul>
-        <li><a href="index.html">home</a></li>
-        <li><a href="abbout.html">About</a></li>
-        <li><a href="registration.html">Course</a></li>
-        <li><a href="lesson.html">Lessons</a></li>
-      </ul>
+<nav>
+    <img src="logo.PNG" alt="Tajir Logo" />
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
     </div>
+    <ul id="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="abbout.html"><i class="fas fa-users"></i> About</a></li>
+      <li><a href="registration.html" class="active"><i class="fas fa-graduation-cap"></i> Course</a></li>
+      <li><a href="lesson.html"><i class="fas fa-book"></i> Lessons</a></li>
+    </ul>
   </nav>
   <h1>welcom to cours</h1>
   <section class="courses">
@@ -118,6 +119,21 @@ css" />
 
     </div>
   </section>
+  <script>
+    // Hamburger toggle
+    const toggleBtn = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+  <script>
+  function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+  }
+</script>
 
 </body>
 
