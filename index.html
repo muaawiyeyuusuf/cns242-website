@@ -17,21 +17,28 @@ css" />
 
   gtag('config', 'G-BDMXCD9YY7');
 </script>
+   <style>
    
+
+   </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <nav>
-        <img src="logo.PNG" alt="Logo" />
-        <ul>
-        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="lesson.html"><i class="fas fa-book"></i> Lessons</a></li>
-    <li><a href="registration.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
-    <li><a href="#footer"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
-    </nav>
+      <nav>
+    <img src="logo.PNG" alt="Logo" />
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul id="navLinks">
+      <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="lesson.html"><i class="fas fa-book"></i> Lessons</a></li>
+      <li><a href="registration.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+      <li><a href="abbout.html"><i class="fas fa-users"></i> About</a></li>
+    </ul>
+  </nav>
+
 
     <section id="home">
         <h1>Welcome to Tajir E-Learning</h1>
@@ -45,7 +52,7 @@ css" />
 
     <section id="features">
         <h2>Why Choose Us</h2>
-        <p>Our platform bridges academic knowledge and practical skills, helping you succeed from day one.</p>
+        <p id="qor">Our platform bridges academic knowledge and practical skills, helping you succeed from day one.</p>
         <div class="features-grid">
             <div class="feature-card">
                 <i class="fas fa-brain"></i>
@@ -117,16 +124,16 @@ css" />
                             <a href="tel:+252617392380"><i class="fas fa-phone" style="font-size: 250%; margin: 5%; color: #29a88a;;"></i>
 </a>
 
-                            <li><a href="#">Data Science</a></li>
+                            <li><a href="tel:+252617392380">Quick Call</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Extra Skills</h3>
                 <ul>
-                    <li><a href="#">Premiere Pro</a></li>
-                    <li><a href="#">CapCut</a></li>
-                    <li><a href="#">Canva</a></li>
-                    <li><a href="#">Video Editing</a></li>
+                    <li><a href="registration.html">Premiere Pro</a></li>
+                    <li><a href="registration.html">CapCut</a></li>
+                    <li><a href="registration.html">Canva</a></li>
+                    <li><a href="registration.html">Video Editing</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -135,12 +142,29 @@ css" />
                     studies and careers.</p>
             </div>
             <div class="footer-column">
-                <h3>About Us</h3>
+                <h3>We Are</h3>
                 <p>We are second-year students at Jumhuriya University of Science and Technology, dedicated to
                     supporting new students in their academic journey.</p>
             </div>
         </div>
+          <span>
+     <a href="index.html" class="go-back-btnn">
+    <i class="fas fa-arrow-up"></i> Go Up
+</a>
     </footer>
+      <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+  </script>
+  <script>
+  function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+  }
+</script>
+
+
 
 </body>
 
