@@ -1,85 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registration - Tajir E-learning</title>
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BDMXCD9YY7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDMXCD9YY7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-BDMXCD9YY7');
-</script>
+    gtag('config', 'G-BDMXCD9YY7');
+  </script>
+  <style>
+
+  </style>
 </head>
 
 <body class="bodyr">
 
-<nav class="n2">
-  <img src="logo.PNG" alt="Tajir Logo" />
-  <div class="navi">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="abbout.html">About</a></li>
-      <li><a href="registration.html" class="active">Course</a></li>
-      <li><a href="lesson.html">Lessons</a></li>
-    </ul>
-  </div>
-</nav>
-
-<section id="registration">
-  <div class="reminder">
-    <p>Get class lessons for free</p>
-    <h1>Register To Get It</h1>
-    <div class="time">
-      <div class="date"><span>365</span> <br /> days</div>
-      <div class="date"><span>24</span> <br /> Hours</div>
-      <div class="date"><span>45</span> <br /> Minutes</div>
-      <div class="date"><span>18</span> <br /> Seconds</div>
+  <nav>
+    <img src="logo.PNG" alt="Tajir Logo" />
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
     </div>
-  </div>
+    <ul id="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="abbout.html"><i class="fas fa-users"></i> About</a></li>
+      <li><a href="registration.html" class="active"><i class="fas fa-graduation-cap"></i> Course</a></li>
+      <li><a href="lesson.html"><i class="fas fa-book"></i> Lessons</a></li>
+    </ul>
+  </nav>
 
-  <form class="form-container" id="registrationForm">
-    <h3>Get Your Free Account NOW!</h3>
-    <input type="text" placeholder="Username" name="username" required />
-    <input type="email" placeholder="Email Address" name="email" id="reg-email" required />
-    <input type="password" placeholder="Password" name="password" id="reg-password" required />
-    <button type="submit" class="btn green">Submit</button>
-    <div id="error" class="error-msg"></div>
-  </form>
-</section>
+  <section id="registration">
+    <div class="reminder">
+      <p>Get class lessons for free</p>
+      <h1>Register To Get It</h1>
+      <div class="time">
+        <div class="date"><span>365</span> <br /> days</div>
+        <div class="date"><span>24</span> <br /> Hours</div>
+        <div class="date"><span>45</span> <br /> Minutes</div>
+        <div class="date"><span>18</span> <br /> Seconds</div>
+      </div>
+    </div>
 
-<script>
-  const form = document.getElementById('registrationForm');
-  const errorDiv = document.getElementById('error');
-  const correctPassword = 'cns242358';
+    <form class="form-container" id="registrationForm">
+      <h3>Get Your Free Account NOW!</h3>
+      <input type="text" placeholder="Username" name="username" required />
+      <input type="email" placeholder="Email Address" name="email" id="reg-email" required />
+      <input type="password" placeholder="Password" name="password" id="reg-password" required />
+      <button type="submit" class="btn green">Submit</button>
+      <div id="error" class="error-msg"></div>
+    </form>
+      <a href="index.html" class="go-back-btnt">
+    <i class="fas fa-home"></i> Go Home
+</a>
+  </section>
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = form.email.value.trim();
-    const password = form.password.value.trim();
+  <script>
+    // Hamburger toggle
+    const toggleBtn = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
 
-    // Email validation - simple check for @ and .
-    const emailValid = email.includes('@') && email.includes('.');
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
 
-    if (!emailValid) {
-      errorDiv.textContent = 'Please enter a valid email address.';
-      return;
-    }
+    // Registration logic
+    const form = document.getElementById('registrationForm');
+    const errorDiv = document.getElementById('error');
+    const correctPassword = 'cns242358';
 
-    if (password === correctPassword) {
-      errorDiv.textContent = '';
-      // Redirect to course page
-      window.location.href = 'course.html';
-    } else {
-      errorDiv.textContent = 'Password is incorrect!';
-    }
-  });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const password = form.password.value.trim();
+
+      const emailValid = email.includes('@') && email.includes('.');
+
+      if (!emailValid) {
+        errorDiv.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      if (password === correctPassword) {
+        errorDiv.textContent = '';
+        window.location.href = 'course.html';
+      } else {
+        errorDiv.textContent = 'Password is incorrect!';
+      }
+    });
+  </script>
+  <script>
+  function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+  }
 </script>
 
+
 </body>
+
 </html>
