@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Registration - Tajir E-learning</title>
+  <title>Login & Sign Up - Tajir E-learning</title>
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <link rel="stylesheet" href="style.css" />
   <!-- Google tag (gtag.js) -->
@@ -17,7 +17,127 @@
     gtag('config', 'G-BDMXCD9YY7');
   </script>
   <style>
+    /* Toggle buttons la jaan qaadaya style-kaaga */
+    .toggle-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
 
+    .toggle-buttons button {
+      flex: 1;
+      padding: 10px 0;
+      font-weight: bold;
+      border-radius: 4px;
+      border: 2px solid #4CAF50;
+      background-color: transparent;
+      color: #4CAF50;
+      cursor: pointer;
+      border-radius: 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .toggle-buttons button.active,
+    .toggle-buttons button:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    form {
+      display: none;
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+    }
+
+    form.active {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      border-radius: 15px;
+    }
+
+    .btn:hover {
+      background-color: #3a8a35;
+    }
+
+    .error-msg {
+      color: #e74c3c;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .success-msg {
+      color: #2ecc71;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Qaybta reminder iyo waqtiga */
+    .reminder {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .reminder p {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .reminder h1 {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      margin-bottom: 15px;
+      color: #4CAF50;
+    }
+
+
+    .time {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .date {
+      background-color: #f2f2f2;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgb(0 0 0 / 0.05);
+      font-size: 1.1rem;
+    }
+
+    .date span {
+      display: block;
+      font-size: 2rem;
+      color: #4CAF50;
+    }
   </style>
 </head>
 
@@ -37,29 +157,59 @@
   </nav>
 
   <section id="registration">
+    <!-- Reminder & Time -->
     <div class="reminder">
       <p>Get class lessons for free</p>
       <h1>Register To Get It</h1>
-      <div class="time">
-        <div class="date"><span>365</span> <br /> days</div>
-        <div class="date"><span>24</span> <br /> Hours</div>
-        <div class="date"><span>45</span> <br /> Minutes</div>
-        <div class="date"><span>18</span> <br /> Seconds</div>
-      </div>
-    </div>
 
-    <form class="form-container" id="registrationForm">
-      <h3>Get Your Free Account NOW!</h3>
-      <input type="text" placeholder="Username" name="username" required />
-      <input type="email" placeholder="Email Address" name="email" id="reg-email" required />
-      <input type="password" placeholder="Password" name="password" id="reg-password" required />
-      <button type="submit" class="btn green">Submit</button>
-      <div id="error" class="error-msg"></div>
-    </form>
-      <a href="index.html" class="go-back-btnt">
-    <i class="fas fa-home"></i> Go Home
-</a>
+      <!-- Toggle Buttons -->
+      <div class="toggle-buttons">
+        <button id="showLogin" class="active">Login</button>
+        <button id="showSignup">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="active">
+        <h3>Login</h3>
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button type="submit" class="btn">Login</button>
+        <div id="loginError" class="error-msg"></div>
+        <div id="loginSuccess" class="success-msg"></div>
+        <button onclick="resetUserData()" class="btn red" style="margin-top: 10px;">Forgot Password?</button>
+
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm">
+        <h3>Get Your Free Account NOW!</h3>
+        <input type="text" id="signupUsername" placeholder="Username" required />
+        <input type="email" id="signupEmail" placeholder="Email" required />
+        <input type="password" id="signupPassword" placeholder="Password" required />
+        <button type="submit" class="btn">Sign Up</button>
+        <div id="signupError" class="error-msg"></div>
+        <div id="signupSuccess" class="success-msg"></div>
+
+      </form>
+
+      <a href="index.html" class="go-back-btnt" style="display:block; margin-top:20px; text-align:center;">
+        <i class="fas fa-home"></i> Go Home
+      </a>
   </section>
+  <button onclick="resetPassword()">Forgot Password?</button>
+
+  <script>
+    function resetUserData() {
+      // Tirtir dhammaan xogta ku jirta localStorage
+      localStorage.clear();
+
+      alert("Xogtaada waa la tirtiray. Fadlan dib isugu diiwaangeli.");
+      window.location.href = "registration.html"; // Ku celi registration form-ka
+    }
+  </script>
+
+
+  </script>
 
   <script>
     // Hamburger toggle
@@ -70,38 +220,112 @@
       navLinks.classList.toggle('active');
     });
 
-    // Registration logic
-    const form = document.getElementById('registrationForm');
-    const errorDiv = document.getElementById('error');
-    const correctPassword = 'cns242358';
+    // Toggle between login and signup forms
+    const showLoginBtn = document.getElementById('showLogin');
+    const showSignupBtn = document.getElementById('showSignup');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
 
-    form.addEventListener('submit', (e) => {
+    showLoginBtn.addEventListener('click', () => {
+      loginForm.classList.add('active');
+      signupForm.classList.remove('active');
+      showLoginBtn.classList.add('active');
+      showSignupBtn.classList.remove('active');
+      clearMessages();
+    });
+
+    showSignupBtn.addEventListener('click', () => {
+      signupForm.classList.add('active');
+      loginForm.classList.remove('active');
+      showSignupBtn.classList.add('active');
+      showLoginBtn.classList.remove('active');
+      clearMessages();
+    });
+
+    function clearMessages() {
+      document.querySelectorAll('.error-msg, .success-msg').forEach(el => el.textContent = '');
+    }
+
+    // Simple user "database" using localStorage
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '{}');
+    }
+
+    function setUsers(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Sign Up handler
+    signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = form.email.value.trim();
-      const password = form.password.value.trim();
+      const username = document.getElementById('signupUsername').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const errorDiv = document.getElementById('signupError');
+      const successDiv = document.getElementById('signupSuccess');
 
-      const emailValid = email.includes('@') && email.includes('.');
+      errorDiv.textContent = '';
+      successDiv.textContent = '';
 
-      if (!emailValid) {
+      if (!email.includes('@') || !email.includes('.')) {
         errorDiv.textContent = 'Please enter a valid email address.';
         return;
       }
 
-      if (password === correctPassword) {
-        errorDiv.textContent = '';
-        window.location.href = 'course.html';
-      } else {
-        errorDiv.textContent = 'Password is incorrect!';
+      if (!username) {
+        errorDiv.textContent = 'Username is required.';
+        return;
       }
+
+      if (password.length < 6) {
+        errorDiv.textContent = 'Password should be at least 6 characters.';
+        return;
+      }
+
+      let users = getUsers();
+
+      if (users[email]) {
+        errorDiv.textContent = 'Email is already registered. Please login.';
+        return;
+      }
+
+      users[email] = { username, password };
+      setUsers(users);
+
+      successDiv.textContent = 'Registration successful! You can now login.';
+      signupForm.reset();
+    });
+
+    // Login handler
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const errorDiv = document.getElementById('loginError');
+      const successDiv = document.getElementById('loginSuccess');
+
+      errorDiv.textContent = '';
+      successDiv.textContent = '';
+
+      let users = getUsers();
+
+      if (!users[email]) {
+        errorDiv.textContent = 'Email not registered. Please sign up first.';
+        return;
+      }
+
+      if (users[email].password !== password) {
+        errorDiv.textContent = 'Incorrect password.';
+        return;
+      }
+
+      successDiv.textContent = 'Login successful! Redirecting...';
+
+      setTimeout(() => {
+        window.location.href = 'course.html'; // Badal halkan bogga aad rabto inaad u wareejiso
+      }, 1500);
     });
   </script>
-  <script>
-  function toggleMenu() {
-    const navLinks = document.getElementById("navLinks");
-    navLinks.classList.toggle("show");
-  }
-</script>
-
 
 </body>
 
