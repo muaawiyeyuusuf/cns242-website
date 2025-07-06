@@ -138,21 +138,165 @@
       font-size: 2rem;
       color: #4CAF50;
     }
+
+    /* Nav Basic */
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      /* Dark Blue */
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: rgb(255, 255, 255);
+      height: 60px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      z-index: 1000;
+    }
+
+    nav img {
+      height: 45px;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      font-size: 17px;
+      color: rgb(5, 28, 63);
+      /* Default link color = white */
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Hover and Focus */
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #04aa6d;
+      color: rgb(245, 246, 247);
+      outline: none;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      width: 26px;
+      height: 22px;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .hamburger div {
+      height: 3px;
+      background-color: rgb(12, 37, 83);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Responsive Navigation */
+    @media (max-width: 768px) {
+      nav ul {
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        background-color: #0b1d3b;
+        flex-direction: column;
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        padding: 0;
+      }
+
+      nav ul.show {
+        max-height: 160px;
+        padding: 8px 0;
+        overflow-y: auto;
+        /* si scroll u noqoto haddii ay liisas badan yihiin */
+      }
+
+
+      nav ul li {
+        padding: 14px 22px;
+      }
+
+      nav ul li a {
+        font-size: 17px;
+        width: 100%;
+        color: white !important;
+        /* Mobile: link color always white */
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* When nav is sticky (you can add a class in JS or style on scroll) */
+    /* Example: If you add class 'scrolled' to nav when page scrolls down */
+    nav.scrolled ul li a {
+      color: #0b1d3b !important;
+      /* Dark Blue links */
+    }
+
+    /* For hover and focus in scrolled state */
+    nav.scrolled ul li a:hover,
+    nav.scrolled ul li a:focus {
+      color: #4caf50 !important;
+    }
+
+    /* If you want links dark blue on desktop but keep white on mobile when hamburger is open */
+    /* This is already handled by media queries */
+
+    /* Optional: If you want to override link colors dynamically using JS scroll event */
+    /* Example JS snippet to add/remove 'scrolled' class */
   </style>
 </head>
 
 <body class="bodyr">
 
   <nav>
-    <img src="logo.PNG" alt="Tajir Logo" />
-    <div class="menu-toggle" id="menu-toggle">
-      <i class="fas fa-bars"></i>
+    <img src="logo.PNG" alt="Logo" />
+    <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <ul id="nav-links">
+    <ul id="navLinks">
       <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="abbout.html"><i class="fas fa-users"></i> About</a></li>
-      <li><a href="registration.html" class="active"><i class="fas fa-graduation-cap"></i> Course</a></li>
       <li><a href="lesson.html"><i class="fas fa-book"></i> Lessons</a></li>
+      <li><a href="registration.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+      <li><a href="exam-resources.html"><i class="fas fa-file-alt"></i>
+          </i> Resources</a></li>
+      <li><a href="abbout.html"><i class="fas fa-info-circle"></i>
+          About</a></li>
     </ul>
   </nav>
 
@@ -207,18 +351,12 @@
     }
   </script>
 
+  <!-- ... koodkaaga hore waa siduu yahay ... -->
 
   </script>
 
+  <!-- Scripts kale -->
   <script>
-    // Hamburger toggle
-    const toggleBtn = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-
     // Toggle between login and signup forms
     const showLoginBtn = document.getElementById('showLogin');
     const showSignupBtn = document.getElementById('showSignup');
@@ -245,7 +383,7 @@
       document.querySelectorAll('.error-msg, .success-msg').forEach(el => el.textContent = '');
     }
 
-    // Simple user "database" using localStorage
+    // LocalStorage user database functions
     function getUsers() {
       return JSON.parse(localStorage.getItem('users') || '{}');
     }
@@ -321,10 +459,37 @@
       successDiv.textContent = 'Login successful! Redirecting...';
 
       setTimeout(() => {
-        window.location.href = 'course.html'; // Badal halkan bogga aad rabto inaad u wareejiso
+        window.location.href = 'course.html';
       }, 1500);
     });
   </script>
+
+  <!-- ✅ Halkan ayaa script-ka hamburger saxda ah lagu daray -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+        hamburger.classList.toggle('active');
+      });
+
+      // Keyboard accessibility
+      hamburger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navLinks.classList.toggle('show');
+          hamburger.classList.toggle('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
+
 
 </body>
 
