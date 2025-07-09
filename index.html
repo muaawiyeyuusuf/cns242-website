@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tajir E-Learning Platform</title>
+    <title>CN E-Learning Platform</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <!-- External Styles -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
@@ -158,6 +158,74 @@
 
         /* Optional: If you want to override link colors dynamically using JS scroll event */
         /* Example JS snippet to add/remove 'scrolled' class */
+
+        #home .btn-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Buttons General */
+#home .btn {
+  position: relative;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  background: linear-gradient(135deg, #04aa6d, #028e5b);
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(4, 170, 109, 0.3);
+  text-decoration: none;
+  z-index: 1;
+}
+
+/* Animation shine bar */
+#home .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: skewX(-20deg);
+  transition: all 0.6s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#home .btn:hover::before {
+  left: 100%;
+}
+
+/* Hover effect proper */
+#home .btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #05c482, #026949);
+  box-shadow: 0 10px 20px rgba(4, 170, 109, 0.5);
+  color: #fff;
+}
+
+/* Learn More button */
+#home .btn.learn-more {
+  background: linear-gradient(135deg, #063180, #041f5f);
+  box-shadow: 0 4px 12px rgba(6, 49, 128, 0.3);
+}
+
+#home .btn.learn-more:hover {
+  background: linear-gradient(135deg, #0842a0, #031447);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(6, 49, 128, 0.5);
+}
+
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -181,8 +249,8 @@
     </nav>
 
     <section id="home">
-        <h1>Welcome to Tajir E-Learning</h1>
-        <p>Tajir E-learning is a resourceful website designed for university students, especially new learners, to
+        <h1>Cns242 E-Learning</h1>
+        <p>Cns242 E-learning is a resourceful website designed for university students, especially new learners, to
             access PDFs, past exams, and valuable course materials that support their academic growth.</p>
         <div class="btn-group">
             <a href="signup.html" class="btn">Get Started</a>
@@ -302,6 +370,48 @@
             }
         });
     </script>
+<script>
+const images = ["slideimg1.jpg", "slideimg2.jpg","slideimg3.jpg","slideimg4.jpg","slideimg5.jpg","slideimg6.jpg","slideimg7.jpg" ];
+
+  const home = document.getElementById("home");
+
+  // Create two layers
+  const bg1 = document.createElement("div");
+  const bg2 = document.createElement("div");
+
+  bg1.classList.add("bg-overlay", "active");
+  bg2.classList.add("bg-overlay");
+
+  home.prepend(bg1);
+  home.prepend(bg2);
+
+  let currentIndex = 0;
+  let showingBg1 = true;
+
+  function setBackground(el, img) {
+    el.style.backgroundImage = `linear-gradient(rgba(9, 5, 54, 0.637), rgba(4, 43, 46, 0.5)), url('${img}')`;
+  }
+
+  setBackground(bg1, images[0]);
+  setBackground(bg2, images[1]);
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    const nextImg = images[(currentIndex + 1) % images.length];
+
+    if (showingBg1) {
+      setBackground(bg2, images[currentIndex]);
+      bg2.classList.add("active");
+      bg1.classList.remove("active");
+    } else {
+      setBackground(bg1, images[currentIndex]);
+      bg1.classList.add("active");
+      bg2.classList.remove("active");
+    }
+
+    showingBg1 = !showingBg1;
+  }, 4000);
+</script>
 
 
 </body>
