@@ -12,88 +12,18 @@ body {
   line-height: 1.6;
 }
 
-a {
-  color: #0b63ce;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
 
-a:hover {
-  color: #0374d7;
-}
-
-/* Navigation */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body {
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
 }
 
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  /* ama midabka aad rabto */
-  z-index: 999;
-  padding: 10px 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* hoos hadh */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-.hamburger {
-  display: none;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-/* Responsive menu for small screens */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  nav ul {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    flex-direction: column;
-    width: 100%;
-    background-color: white;
-    border-top: 1px solid #ddd;
-  }
-
-  nav ul.show {
-    display: flex;
-  }
-}
-
 /* Hero Section */
 #home {
-  background: linear-gradient(rgba(9, 5, 54, 0.637), rgba(4, 43, 46, 0.5)), url(bg2.jpg) no-repeat center center/cover;
+  position: relative;
   height: 90vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,6 +32,24 @@ nav ul li a {
   text-align: center;
   padding: 0 20px;
 }
+
+.bg-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: -1;
+}
+
+.bg-overlay.active {
+  opacity: 1;
+}
+
 
 #home h1 {
   font-size: 5.0rem;
@@ -118,6 +66,7 @@ nav ul li a {
 }
 
 /* Buttons group */
+/* Button Container */
 #home .btn-group {
   display: flex;
   gap: 20px;
@@ -125,41 +74,65 @@ nav ul li a {
   justify-content: center;
 }
 
-/* Buttons styling */
+/* Buttons Styling (Get Started + General) */
 #home .btn {
-  background: #04aa6d;
-  color: white;
+  position: relative;
+  display: inline-block;
   padding: 12px 30px;
   border-radius: 25px;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: all 0.4s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 10px rgba(4, 170, 109, 0.4);
-  position: relative;
+  color: #fff;
+  background: linear-gradient(135deg, #04aa6d, #028e5b);
+  border: none;
+  cursor: pointer;
   overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(4, 170, 109, 0.3);
+  text-decoration: none;
 }
 
+/* Stripe animation on hover */
+#home .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease-in-out;
+  z-index: 0;
+}
+
+#home .btn:hover::before {
+  left: 125%;
+}
+
+/* Hover effect */
 #home .btn:hover {
-  background: #037a4e;
-  box-shadow: 0 8px 15px rgba(3, 122, 78, 0.7);
-  transform: translateY(-3px);
+  background: linear-gradient(135deg, #05c482, #026949);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(4, 170, 109, 0.5);
+  z-index: 1;
 }
 
-/* Learn More button with different color */
+/* Learn More Button Style */
 #home .btn.learn-more {
-  background: #063180;
-  box-shadow: 0 4px 10px rgba(6, 49, 128, 0.6);
+  background: linear-gradient(135deg, #063180, #041f5f);
+  box-shadow: 0 4px 12px rgba(6, 49, 128, 0.3);
 }
 
 #home .btn.learn-more:hover {
-  background: #041f5f;
-  box-shadow: 0 8px 15px rgba(4, 31, 95, 0.7);
-  transform: translateY(-3px);
+  background: linear-gradient(135deg, #0842a0, #031447);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(6, 49, 128, 0.5);
 }
+
 
 /* Features Section */
 #features {
