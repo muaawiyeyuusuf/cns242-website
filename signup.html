@@ -405,16 +405,20 @@
             }
         })
 
-        googleLoginBtn.addEventListener('click', async () => {
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google'
-            })
+   googleLoginBtn.addEventListener('click', async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/'
+        }
+    })
 
-            if (error) {
-                messageDiv.textContent = 'Google Sign In error: ' + error.message
-                messageDiv.className = 'error'
-            }
-        })
+    if (error) {
+        messageDiv.textContent = 'Google Sign In error: ' + error.message
+        messageDiv.className = 'error'
+    }
+})
+
     </script>
 
 </body>
