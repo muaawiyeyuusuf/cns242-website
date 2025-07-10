@@ -405,19 +405,20 @@
             }
         })
 
-   googleLoginBtn.addEventListener('click', async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            redirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/'
-        }
-    })
-
-    if (error) {
-        messageDiv.textContent = 'Google Sign In error: ' + error.message
-        messageDiv.className = 'error'
+ googleLoginBtn.addEventListener('click', async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/lesson.html'  // Tani muhiim ayay tahay
     }
-})
+  });
+
+  if (error) {
+    messageDiv.textContent = 'Google Sign In error: ' + error.message
+    messageDiv.className = 'error'
+  }
+});
+
 
     </script>
 
