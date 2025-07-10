@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CN E-Learning Signup</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
     <style>
         /* Nav CSS (sidii hore) */
         nav {
@@ -200,6 +202,22 @@
         .error {
             color: red;
         }
+
+        /* Google button styling */
+        #google-login-btn {
+            background-color: #1a3766 !important;
+            color: white !important;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #google-login-btn i {
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -216,8 +234,6 @@
             <li><a href="interface-ai.html"><i class="fas fa-robot"></i>Tallk to Ai</a></li>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
-
-
         </ul>
     </nav>
 
@@ -231,6 +247,11 @@
             <input type="email" id="signupEmail" placeholder="Email" required />
             <input type="password" id="signupPassword" placeholder="Password" required />
             <button type="submit">Register</button>
+
+            <!-- Google Sign-In Button -->
+            <button type="button" id="google-login-btn" class="btn">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
         </form>
 
         <form id="loginForm" style="display: none;">
@@ -285,6 +306,7 @@
         const messageDiv = document.getElementById('message')
         const showReset = document.getElementById('showReset')
         const backToLogin = document.getElementById('backToLogin')
+        const googleLoginBtn = document.getElementById('google-login-btn')
 
         toggleBtn.addEventListener('click', () => {
             const isSignup = signupForm.style.display !== 'none'
@@ -382,8 +404,18 @@
                 resetForm.reset()
             }
         })
-    </script>
 
+        googleLoginBtn.addEventListener('click', async () => {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google'
+            })
+
+            if (error) {
+                messageDiv.textContent = 'Google Sign In error: ' + error.message
+                messageDiv.className = 'error'
+            }
+        })
+    </script>
 
 </body>
 
