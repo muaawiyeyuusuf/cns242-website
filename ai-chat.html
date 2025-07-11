@@ -14,11 +14,18 @@
     }
 
     html, body {
-      height: 100%;
+      height: 100vh;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #dbeafe, #f0f9ff);
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(135deg, #0b1d3b, #1e3a8a);
+      color: white;
     }
 
     nav {
@@ -34,6 +41,12 @@
       height: 60px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
       z-index: 1000;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+
+    body.dark-mode nav {
+      background-color: #1e3a8a;
     }
 
     nav img {
@@ -60,6 +73,10 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    body.dark-mode nav ul li a {
+      color: white;
+    }
+
     nav ul li a:hover {
       background-color: #04aa6d;
       color: white;
@@ -78,6 +95,22 @@
       height: 3px;
       background-color: rgb(12, 37, 83);
       border-radius: 3px;
+    }
+
+    #darkToggle {
+      cursor: pointer;
+      font-size: 14px;
+      color: #0b1d3b;
+      background: #e5e7eb;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: background 0.3s;
+      font-weight: 600;
+    }
+
+    body.dark-mode #darkToggle {
+      color: #fff;
+      background: #facc15;
     }
 
     @media (max-width: 768px) {
@@ -115,19 +148,20 @@
       }
     }
 
-    /* Chatbot Centered Box */
     .chat-container {
       flex-grow: 1;
+      height: calc(100vh - 60px);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 0;
+      position: relative;
     }
 
     .chat-box {
       width: 100%;
       max-width: 800px;
-      height: 600px;
+      height: 100%;
       background: white;
       border-radius: 20px;
       overflow: hidden;
@@ -135,36 +169,47 @@
       border: 3px solid #0b1d3b33;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     .chat-welcome {
-  background: linear-gradient(135deg, #0b1d3b, #1e3a8a);
-  color: white;
-  padding: 12px 18px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'Poppins', sans-serif;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  text-align: left;
-  word-break: break-word;
-  line-height: 1.5;
-}
+      background: linear-gradient(135deg, #0b1d3b, #1e3a8a);
+      color: white;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      text-align: left;
+      word-break: break-word;
+      line-height: 1.5;
+    }
 
-@media (max-width: 768px) {
-  .chat-welcome {
-    font-size: 14px;
-    padding: 10px 14px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-}
+    .close-chat, .start-chat {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 100;
+    }
 
+    .start-chat {
+      top: auto;
+      bottom: 20px;
+      right: 20px;
+      background: #0b1d3b;
+    }
 
     .chat-box iframe {
       width: 100%;
@@ -173,34 +218,54 @@
       border: none;
     }
 
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #0b1d3b;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      z-index: 100;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
     @media (max-width: 768px) {
+      .chat-container {
+        height: calc(100vh - 60px);
+        padding: 0.5rem;
+      }
+
       .chat-box {
         max-width: 95%;
-        height: 90vh;
+        height: 100%;
       }
 
       .chat-welcome {
         font-size: 14px;
-        padding: 10px 12px;
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
       }
-    }
-
-    footer {
-      text-align: center;
-      background: #0b1d3b;
-      color: white;
-      font-size: 0.9rem;
-      padding: 1rem;
-      border-top: 1px solid #e2e8f0;
     }
   </style>
 </head>
 <body>
-
   <nav>
     <img src="logo.PNG" alt="Logo" />
-    <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
-      <div></div><div></div><div></div>
+    <div style="display: flex; gap: 20px; align-items: center;">
+      <div id="darkToggle" title="Toggle Dark Mode">Dark</div>
+      <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+        <div></div><div></div><div></div>
+      </div>
     </div>
     <ul id="navLinks">
       <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
@@ -211,25 +276,28 @@
   </nav>
 
   <div class="chat-container">
-    <div class="chat-box">
+    <div class="chat-box" id="chatBox">
       <div class="chat-welcome">
-        🤖 <strong>Soo dhawoow!</strong> – waxaan ahay caawiyahaaga <strong>Muaawiya</strong>
+        🤖 <strong>Soo dhawoow!</strong> Haka baqin inaad su'aal i waydiiso – waxaan ahay caawiyahaaga <strong>Muaawiya</strong>
+        <button class="close-chat" onclick="document.getElementById('chatBox').style.display='none'; document.getElementById('startChat').style.display='block';">X</button>
       </div>
+      <div class="loading-spinner" id="spinner"></div>
       <iframe
         src="https://www.chatbase.co/chatbot-iframe/44-VTW-TuiAjUkZRHdOg2"
         allow="microphone;"
         title="Chatbot Assistant"
+        onload="document.getElementById('spinner').style.display='none'"
       ></iframe>
     </div>
+    <button class="start-chat" id="startChat" onclick="document.getElementById('chatBox').style.display='flex'; this.style.display='none';" style="display:none;">Start Chat</button>
   </div>
 
-  <footer id="footer">
-    &copy; 2025 <strong>Cns242 E-Learning</strong>. All rights reserved.
-  </footer>
+  <footer id="footer" style="display: none;"></footer>
 
   <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
+    const darkToggle = document.getElementById('darkToggle');
 
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('show');
@@ -242,6 +310,11 @@
         navLinks.classList.toggle('show');
         hamburger.classList.toggle('active');
       }
+    });
+
+    darkToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkToggle.textContent = document.body.classList.contains('dark-mode') ? 'Light' : 'Dark';
     });
   </script>
 </body>
