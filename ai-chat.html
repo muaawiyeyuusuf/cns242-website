@@ -98,13 +98,12 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         transition: max-height 0.4s ease;
       }
-     nav ul.show {
-                max-height: 160px;
-                padding: 8px 0;
-                overflow-y: auto;
-                /* si scroll u noqoto haddii ay liisas badan yihiin */
-            }
 
+      nav ul.show {
+        max-height: 160px;
+        padding: 8px 0;
+        overflow-y: auto;
+      }
 
       nav ul li {
         padding: 14px 22px;
@@ -116,7 +115,8 @@
       }
     }
 
-    main {
+    /* Chatbot Centered Box */
+    .chat-container {
       flex-grow: 1;
       display: flex;
       justify-content: center;
@@ -124,30 +124,71 @@
       padding: 2rem;
     }
 
-    .card {
+    .chat-box {
+      width: 100%;
+      max-width: 800px;
+      height: 600px;
       background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      max-width: 500px;
-      text-align: center;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      border: 3px solid #0b1d3b33;
+      display: flex;
+      flex-direction: column;
     }
 
-    .card h2 {
-      color: #1e3a8a;
-      margin-bottom: 1rem;
+    .chat-welcome {
+  background: linear-gradient(135deg, #0b1d3b, #1e3a8a);
+  color: white;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-align: left;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .chat-welcome {
+    font-size: 14px;
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+
+    .chat-box iframe {
+      width: 100%;
+      height: 100%;
+      flex-grow: 1;
+      border: none;
     }
 
-    .card p {
-      font-size: 1.05rem;
-      color: #334155;
-      line-height: 1.6;
+    @media (max-width: 768px) {
+      .chat-box {
+        max-width: 95%;
+        height: 90vh;
+      }
+
+      .chat-welcome {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
     }
 
     footer {
       text-align: center;
-      background: #f1f5f9;
-      color: #64748b;
+      background: #0b1d3b;
+      color: white;
       font-size: 0.9rem;
       padding: 1rem;
       border-top: 1px solid #e2e8f0;
@@ -169,27 +210,22 @@
     </ul>
   </nav>
 
-  <main>
-    <div class="card">
-      <h2>La sheekeyso Muawiyah AI</h2>
-      <p>
-        Waa caawiye AI ah oo kaa caawinaya inaad fahamto casharada. <br />
-        Si aad ula hadasho, <strong>"hoos dhanka midig  ka eeg robotka gacnta ku haatinaya</strong> tabo kadib chatka ayaa kufurmi dona kadibna weydi waxad donto.
-      </p>
+  <div class="chat-container">
+    <div class="chat-box">
+      <div class="chat-welcome">
+        🤖 <strong>Soo dhawoow!</strong> – waxaan ahay caawiyahaaga <strong>Muaawiya</strong>
+      </div>
+      <iframe
+        src="https://www.chatbase.co/chatbot-iframe/44-VTW-TuiAjUkZRHdOg2"
+        allow="microphone;"
+        title="Chatbot Assistant"
+      ></iframe>
     </div>
-  </main>
+  </div>
 
-  <footer id="footer" style="background-color: #0b1d3b; color: white; ">
+  <footer id="footer">
     &copy; 2025 <strong>Cns242 E-Learning</strong>. All rights reserved.
   </footer>
-
-  <!-- Chatbase Script -->
-  <script>
-    window.chatbaseConfig = {
-      chatbotId: "3Cr2946wb7EF78X7Fzs3y"
-    }
-  </script>
-  <script src="https://www.chatbase.co/embed.min.js" defer></script>
 
   <script>
     const hamburger = document.getElementById('hamburger');
