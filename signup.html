@@ -1,21 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CN E-Learning Signup</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <style>
-        /* Nav CSS */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cabasho - CNS242 E-Learning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b1d3b;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .center-box {
+      margin: auto;
+      width: 90%;
+      max-width: 400px;
+      background-color: #ffffff10;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      background-color: #fff;
+      color: #0b1d3b;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #04aa6d;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .chat-container {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 10px 15px;
+      border-radius: 18px;
+      line-height: 1.5;
+      font-size: 15px;
+      word-wrap: break-word;
+      margin-top: 2%;
+      margin-bottom: 2%;
+    }
+
+    .user-message {
+      background-color: #04aa6d;
+      align-self: flex-end;
+      color: #fff;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot-message {
+      background-color: #fff;
+      align-self: flex-start;
+      color: #0b1d3b;
+      border-bottom-left-radius: 0;
+    }
+
+    .input-container {
+      display: none;
+      flex-direction: row;
+      padding: 10px;
+      background-color: #ffffff10;
+      border-top: 1px solid #ffffff30;
+      align-items: center;
+      margin-top: -10%;
+    }
+
+    textarea {
+      flex: 1;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+      height: 40px;
+      background-color: #fff;
+      color: #0b1d3b;
+      margin-right: 10px;
+    }
+
+    .send-btn {
+      background-color: #04aa6d;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .send-btn i {
+      font-size: 18px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 480px) {
+      .center-box {
+        padding: 15px;
+        width: 95%;
+      }
+
+      textarea {
+        height: 35px;
+        font-size: 14px;
+        margin-right: 8px;
+      }
+
+      .send-btn {
+        padding: 9px 12px;
+      }
+
+      .message {
+        font-size: 14px;
+      }
+    }
+     /* Nav Basic */
         nav {
             position: sticky;
             top: 0;
             background-color: #ffffff;
+            /* Dark Blue */
             padding: 10px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            color: rgb(255, 255, 255);
             height: 60px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
             z-index: 1000;
@@ -30,27 +166,32 @@
             list-style: none;
             display: flex;
             gap: 28px;
-            transition: 0.4s ease;
+            transition: max-height 0.4s ease, padding 0.4s ease;
         }
 
         nav ul li a {
             font-weight: 600;
             font-size: 17px;
             color: rgb(5, 28, 63);
+            /* Default link color = white */
             padding: 6px 8px;
             border-radius: 6px;
-            transition: 0.2s ease;
-            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
             display: flex;
             align-items: center;
             gap: 6px;
+            text-decoration: none;
         }
 
-        nav ul li a:hover {
-            background-color: #069661;
-            color: white;
+        /* Hover and Focus */
+        nav ul li a:hover,
+        nav ul li a:focus {
+            background-color: #04aa6d;
+            color: rgb(245, 246, 247);
+            outline: none;
         }
 
+        /* Hamburger Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -64,8 +205,9 @@
 
         .hamburger div {
             height: 3px;
-            background-color: #0c2553;
+            background-color: rgb(12, 37, 83);
             border-radius: 3px;
+            transition: all 0.3s ease;
         }
 
         .hamburger.active div:nth-child(1) {
@@ -80,6 +222,7 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
+        /* Responsive Navigation */
         @media (max-width: 768px) {
             nav ul {
                 position: absolute;
@@ -98,7 +241,10 @@
             nav ul.show {
                 max-height: 160px;
                 padding: 8px 0;
+                overflow-y: auto;
+                /* si scroll u noqoto haddii ay liisas badan yihiin */
             }
+
 
             nav ul li {
                 padding: 14px 22px;
@@ -108,6 +254,7 @@
                 font-size: 17px;
                 width: 100%;
                 color: white !important;
+                /* Mobile: link color always white */
             }
 
             .hamburger {
@@ -115,93 +262,26 @@
             }
         }
 
-        /* Body + Form */
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            margin: 0;
-            padding: 0;
+        /* When nav is sticky (you can add a class in JS or style on scroll) */
+        /* Example: If you add class 'scrolled' to nav when page scrolls down */
+        nav.scrolled ul li a {
+            color: #0b1d3b !important;
+            /* Dark Blue links */
         }
 
-        .container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 340px;
-            margin: 100px auto;
+        /* For hover and focus in scrolled state */
+        nav.scrolled ul li a:hover,
+        nav.scrolled ul li a:focus {
+            color: #4caf50 !important;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-        }
-
-        input {
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1.5px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        button {
-            padding: 12px;
-            background-color: #00ff95;
-            color: rgb(5, 28, 63);
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: rgb(5, 28, 63);
-            color: white;
-        }
-
-        .toggle,
-        .link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .toggle button,
-        .link button {
-            background: none;
-            color: #0077ff;
-            border: none;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #message {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .success {
-            color: green;
-        }
-
-        .error {
-            color: red;
-        }
-    </style>
+    
+  </style>
 </head>
-
-<body>
-    <nav>
+<body> 
+<nav>
         <img src="logo.PNG" alt="Logo" />
-        <div class="hamburger" id="hamburger">
+        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
             <div></div>
             <div></div>
             <div></div>
@@ -209,199 +289,131 @@
         <ul id="navLinks">
             <li><a href="interface-ai.html"><i class="fas fa-robot"></i>Tallk to Ai</a></li>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#footer"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i>Signup</a></li>
             <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
-            <li><a href="complaints.html"><i class="fas fa-comment-dots"></i>Complaint</a></li>
 
         </ul>
     </nav>
 
-    <div class="container">
-        <h2 id="formTitle">Sign Up</h2>
 
-        <form id="signupForm">
-            <h1 style="margin-top: 5%;margin-left: 20%; font-size: 1rem;">Welcome to Cns242-Elearning</h1>
-            <p style="margin-left: 15%;">Is diiwaangeli hadii aad cusub tahy</p>
-            <input type="email" id="signupEmail" placeholder="Email" required />
-            <input type="password" id="signupPassword" placeholder="Password" required />
-            <button type="submit">Register</button>
-        </form>
+  <!-- Intro Form -->
+  <div class="center-box" id="introForm">
+    <h3>Bilow Cabashadaada</h3>
+    <input type="email" id="emailInput" placeholder="Email-kaaga" required />
+    <input type="tel" id="phoneInput" placeholder="Lambarka Taleefanka" required />
+    <button onclick="startChat()">Bilow Chat</button>
+  </div>
 
-        <form id="loginForm" style="display: none;">
-            <h1 style="margin-top: 5%;margin-left: 33%; font-size: 1rem;">Welcome Back</h1>
-            <input type="email" id="loginEmail" placeholder="Email" required />
-            <input type="password" id="loginPassword" placeholder="Password" required />
-            <button type="submit">Login</button>
-            <div class="link">
-                <button type="button" id="showReset">Forgot password?</button>
-            </div>
-        </form>
+  <!-- Chat Messages -->
+  <div class="chat-container" id="chatContainer"></div>
 
-        <form id="resetForm" style="display: none;">
-            <input type="email" id="resetEmail" placeholder="Your Email" required />
-            <button type="submit">Reset Password</button>
-            <div class="link">
-                <button type="button" id="backToLogin">Back to Login</button>
-            </div>
-        </form>
+  <!-- Chat Input -->
+  <div class="input-container" id="inputContainer">
+    <textarea id="messageInput" placeholder="Qor cabashadaada..."></textarea>
+    <button class="send-btn" onclick="sendComplaint()">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
 
-        <div class="toggle">
-            <span id="toggleText">Already have an account?</span>
-            <button id="toggleBtn">Login</button>
-        </div>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-        <div id="message"></div>
-    </div>
+    const supabase = createClient(
+      'https://ulmqbyydxzidqxbxrsas.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
+    );
 
-    <script>
+    let email = '';
+    let phone = '';
+    const chatContainer = document.getElementById('chatContainer');
+
+    function addMessage(text, type) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${type === 'user' ? 'user-message' : 'bot-message'}`;
+      msgDiv.textContent = text;
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    window.startChat = () => {
+      const e = document.getElementById('emailInput').value.trim();
+      const p = document.getElementById('phoneInput').value.trim();
+
+      if (!e || !p) {
+        alert('Fadlan buuxi email iyo numberkaaga.');
+        return;
+      }
+
+      // Validate email & phone
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phonePattern = /^[0-9]{7,15}$/;
+
+      if (!emailPattern.test(e)) {
+        alert('Fadlan geli email sax ah.');
+        return;
+      }
+
+      if (!phonePattern.test(p)) {
+        alert('Lambarka sax ma aha.');
+        return;
+      }
+
+      email = e;
+      phone = p;
+
+      // Show chat UI
+      document.getElementById('introForm').style.display = 'none';
+      document.getElementById('chatContainer').style.display = 'flex';
+      document.getElementById('inputContainer').style.display = 'flex';
+
+      addMessage("👋 Salaam! Fadlan nala wadaag cabashadaada si aan kuu caawinno.", "bot");
+    };
+
+    window.sendComplaint = async () => {
+      const message = document.getElementById('messageInput').value.trim();
+      if (!message) {
+        alert('Fadlan qor cabashada.');
+        return;
+      }
+
+      addMessage(message, 'user');
+
+      const { error } = await supabase
+        .from('complaints')
+        .insert([{ email, phone, message }]);
+
+      if (error) {
+        console.error(error);
+        addMessage("❌ Cabashada lama dirin. Fadlan Hubi Internet Kaga iskuna day mar kale.", "bot");
+      } else {
+        document.getElementById('messageInput').value = '';
+        addMessage("✅ Cabashadaada waa la diray. Waxaan kula soo xiriiri doonaa email ahaan. — CNS242 Team. Hdii aad cawimaad degdeg ah ubahantahay Laxeriir Muawiyah AI Bot ka si uu Kuucawiyio. Mahadsanind [#CNS242 Team]", "bot");
+      }
+    };
+  </script>
+ <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
+
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
             navLinks.classList.toggle('show');
+            hamburger.classList.toggle('active');
         });
 
-        // ✅ Farriinta email verification success
-        const urlParams = new URLSearchParams(window.location.search);
-        const isVerified = urlParams.get("verified");
-        if (isVerified === "true") {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = '✅ Email-kaaga waa la xaqiijiyay. Fadlan gal akoonkaaga.';
-            messageDiv.className = 'success';
-        }
+        // Keyboard accessibility
+        hamburger.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                navLinks.classList.toggle('show');
+                hamburger.classList.toggle('active');
+            }
+        });
     </script>
+    
+  <!-- Chatbase Script -->
+  
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-        const supabase = createClient(
-            'https://ulmqbyydxzidqxbxrsas.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
-        )
-
-        const signupForm = document.getElementById('signupForm')
-        const loginForm = document.getElementById('loginForm')
-        const resetForm = document.getElementById('resetForm')
-        const toggleBtn = document.getElementById('toggleBtn')
-        const toggleText = document.getElementById('toggleText')
-        const formTitle = document.getElementById('formTitle')
-        const messageDiv = document.getElementById('message')
-        const showReset = document.getElementById('showReset')
-        const backToLogin = document.getElementById('backToLogin')
-
-        toggleBtn.addEventListener('click', () => {
-            const isSignup = signupForm.style.display !== 'none'
-            signupForm.style.display = isSignup ? 'none' : 'flex'
-            loginForm.style.display = isSignup ? 'flex' : 'none'
-            resetForm.style.display = 'none'
-            formTitle.textContent = isSignup ? 'Login' : 'Sign Up'
-            toggleText.textContent = isSignup ? "Don't have an account?" : 'Already have an account?'
-            toggleBtn.textContent = isSignup ? 'Sign Up' : 'Login'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        showReset.addEventListener('click', () => {
-            signupForm.style.display = 'none'
-            loginForm.style.display = 'none'
-            resetForm.style.display = 'flex'
-            formTitle.textContent = 'Reset Password'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        backToLogin.addEventListener('click', () => {
-            resetForm.style.display = 'none'
-            loginForm.style.display = 'flex'
-            formTitle.textContent = 'Login'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        signupForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('signupEmail').value
-            const password = document.getElementById('signupPassword').value
-
-            const { error } = await supabase.auth.signUp(
-                { email, password },
-                { emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/signup.html?verified=true' }
-
-
-
-            )
-
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-            } else {
-                messageDiv.textContent = '✅ Registered! Check your email to confirm before login.'
-                messageDiv.className = 'success'
-                signupForm.reset()
-            }
-        })
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('loginEmail').value
-            const password = document.getElementById('loginPassword').value
-
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-                return
-            }
-
-            const user = data.user
-
-            if (!user.email_confirmed_at) {
-                messageDiv.textContent = '⚠️ Please confirm your email before logging in.'
-                messageDiv.className = 'error'
-                await supabase.auth.signOut()
-                return
-            }
-
-            messageDiv.textContent = '✅ Login successful! Redirecting...'
-            messageDiv.className = 'success'
-            loginForm.reset()
-
-            setTimeout(() => {
-                if (user.email === "taajirkibirsan87@gmail.com") {
-                    window.location.href = 'admin-dashboard.html'
-                } else {
-                    window.location.href = 'lesson.html'
-                }
-            }, 0)
-        })
-
-        resetForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('resetEmail').value
-            const { error } = await supabase.auth.resetPasswordForEmail(email)
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-            } else {
-                messageDiv.textContent = '📧 Password reset email sent! Check your inbox.'
-                messageDiv.className = 'success'
-                resetForm.reset()
-            }
-        })
-
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session?.user) {
-                if (session.user.email === "taajirkibirsan87@gmail.com") {
-                    window.location.href = 'admin-dashboard.html'
-                } else {
-                    window.location.href = 'lesson.html'
-                }
-            }
-        })
-
-
-    </script>
-
+ 
 </body>
-
 </html>
