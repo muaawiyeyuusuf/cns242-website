@@ -1,146 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cabasho - CNS242 E-Learning</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css">
-  <style>
-    
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0b1d3b;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      color: #fff;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cabasho - CNS242 E-Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .center-box {
-      margin: auto;
-      width: 90%;
-      max-width: 400px;
-      background-color: #ffffff10;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #0b1d3b;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
 
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: none;
-      font-size: 15px;
-      background-color: #fff;
-      color: #0b1d3b;
-      box-sizing: border-box;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #04aa6d;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .chat-container {
-      display: none;
-      flex: 1;
-      flex-direction: column;
-      padding: 15px;
-      overflow-y: auto;
-    }
-
-    .message {
-      max-width: 75%;
-      padding: 10px 15px;
-      border-radius: 18px;
-      line-height: 1.5;
-      font-size: 15px;
-      word-wrap: break-word;
-      margin-top: 2%;
-      margin-bottom: 2%;
-    }
-
-    .user-message {
-      background-color: #04aa6d;
-      align-self: flex-end;
-      color: #fff;
-      border-bottom-right-radius: 0;
-    }
-
-    .bot-message {
-      background-color: #fff;
-      align-self: flex-start;
-      color: #0b1d3b;
-      border-bottom-left-radius: 0;
-    }
-
-    .input-container {
-      display: none;
-      flex-direction: row;
-      padding: 10px;
-      background-color: #ffffff10;
-      border-top: 1px solid #ffffff30;
-      align-items: center;
-    }
-
-    textarea {
-      flex: 1;
-      font-size: 15px;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      resize: none;
-      height: 40px;
-      background-color: #fff;
-      color: #0b1d3b;
-      margin-right: 10px;
-    }
-
-    .send-btn {
-      background-color: #04aa6d;
-      color: white;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .send-btn i {
-      font-size: 18px;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 480px) {
-      .center-box {
-        padding: 15px;
-        width: 95%;
-      }
-
-      textarea {
-        height: 35px;
-        font-size: 14px;
-        margin-right: 8px;
-      }
-
-      .send-btn {
-        padding: 9px 12px;
-      }
-
-      .message {
-        font-size: 14px;
-      }
-    }
-     /* Nav Basic */
         nav {
             position: sticky;
             top: 0;
@@ -274,11 +155,144 @@
             color: #4caf50 !important;
         }
 
-    
-  </style>
+        /* If you want links dark blue on desktop but keep white on mobile when hamburger is open */
+        /* This is already handled by media queries */
+
+        /* Optional: If you want to override link colors dynamically using JS scroll event */
+        /* Example JS snippet to add/remove 'scrolled' class */
+
+
+        .chat-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+            max-width: 900px;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .center-box {
+            background-color: #ffffff10;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            background-color: #fff;
+            color: #0b1d3b;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #04aa6d;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .chat-container {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #ffffff10;
+            border-radius: 10px;
+            min-height: 300px;
+            max-height: calc(100vh - 180px);
+            /* si input-container uusan uga baxsan */
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 15px;
+            word-wrap: break-word;
+            margin: 10px 0;
+        }
+
+        .user-message {
+            background-color: #04aa6d;
+            align-self: flex-end;
+            color: #fff;
+            border-bottom-right-radius: 0;
+        }
+
+        .bot-message {
+            background-color: #fff;
+            align-self: flex-start;
+            color: #0b1d3b;
+            border-bottom-left-radius: 0;
+        }
+
+        .input-container {
+            display: none;
+            flex-direction: row;
+            padding: 10px;
+            background-color: #ffffff10;
+            border-top: 1px solid #ffffff30;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+            justify-content: center;
+        }
+
+
+        textarea {
+            flex: 1;
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            resize: none;
+            height: 40px;
+            background-color: #fff;
+            color: #0b1d3b;
+        }
+
+        .send-btn {
+            background-color: #04aa6d;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .send-btn i {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+
+
+            .hamburger {
+                display: flex;
+            }
+
+            .chat-wrapper {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-<body> 
-<nav>
+
+<body>
+    <nav>
         <img src="logo.PNG" alt="Logo" />
         <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
             <div></div>
@@ -291,107 +305,85 @@
             <li><a href="#footer"><i class="fas fa-envelope"></i> Contact</a></li>
             <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i>Signup</a></li>
             <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
+            <li><a href="complaints.html"><i class="fas fa-comment-dots"></i>Complaint</a></li>
 
         </ul>
     </nav>
 
+    <div class="chat-wrapper">
+        <div class="center-box" id="introForm">
+            <h3>Bilow Cabashadaada</h3>
+            <input type="email" id="emailInput" placeholder="Email-kaaga" required />
+            <input type="tel" id="phoneInput" placeholder="Lambarka Taleefanka" required />
+            <button onclick="startChat()">Bilow Chat</button>
+        </div>
 
-  <!-- Intro Form -->
-  <div class="center-box" id="introForm">
-    <h3>Bilow Cabashadaada</h3>
-    <input type="email" id="emailInput" placeholder="Email-kaaga" required />
-    <input type="tel" id="phoneInput" placeholder="Lambarka Taleefanka" required />
-    <button onclick="startChat()">Bilow Chat</button>
-  </div>
+        <div class="chat-container" id="chatContainer"></div>
 
-  <!-- Chat Messages -->
-  <div class="chat-container" id="chatContainer"></div>
+        <div class="input-container" id="inputContainer">
+            <textarea id="messageInput" placeholder="Qor cabashadaada..."></textarea>
+            <button class="send-btn" onclick="sendComplaint()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
 
-  <!-- Chat Input -->
-  <div class="input-container" id="inputContainer">
-    <textarea id="messageInput" placeholder="Qor cabashadaada..."></textarea>
-    <button class="send-btn" onclick="sendComplaint()">
-      <i class="fas fa-paper-plane"></i>
-    </button>
-  </div>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const supabase = createClient(
+            'https://ulmqbyydxzidqxbxrsas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
+        );
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        let email = '';
+        let phone = '';
+        const chatContainer = document.getElementById('chatContainer');
 
-    const supabase = createClient(
-      'https://ulmqbyydxzidqxbxrsas.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
-    );
+        function addMessage(text, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type === 'user' ? 'user-message' : 'bot-message'}`;
+            msgDiv.textContent = text;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-    let email = '';
-    let phone = '';
-    const chatContainer = document.getElementById('chatContainer');
+        window.startChat = () => {
+            const e = document.getElementById('emailInput').value.trim();
+            const p = document.getElementById('phoneInput').value.trim();
 
-    function addMessage(text, type) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `message ${type === 'user' ? 'user-message' : 'bot-message'}`;
-      msgDiv.textContent = text;
-      chatContainer.appendChild(msgDiv);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+            if (!e || !p) return alert('Fadlan buuxi email iyo numberkaaga.');
 
-    window.startChat = () => {
-      const e = document.getElementById('emailInput').value.trim();
-      const p = document.getElementById('phoneInput').value.trim();
+            email = e;
+            phone = p;
 
-      if (!e || !p) {
-        alert('Fadlan buuxi email iyo numberkaaga.');
-        return;
-      }
+            document.getElementById('introForm').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('inputContainer').style.display = 'flex';
 
-      // Validate email & phone
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phonePattern = /^[0-9]{7,15}$/;
+            addMessage("👋 Salaam! Fadlan nala wadaag cabashadaada si aan kuu caawinno.", "bot");
+        };
 
-      if (!emailPattern.test(e)) {
-        alert('Fadlan geli email sax ah.');
-        return;
-      }
+        window.sendComplaint = async () => {
+            const message = document.getElementById('messageInput').value.trim();
+            if (!message) return alert('Fadlan qor cabashada.');
 
-      if (!phonePattern.test(p)) {
-        alert('Lambarka sax ma aha.');
-        return;
-      }
+            addMessage(message, 'user');
+            document.getElementById('messageInput').value = '';
 
-      email = e;
-      phone = p;
+            const { error } = await supabase
+                .from('complaints')
+                .insert([{ email, phone, message }]);
 
-      // Show chat UI
-      document.getElementById('introForm').style.display = 'none';
-      document.getElementById('chatContainer').style.display = 'flex';
-      document.getElementById('inputContainer').style.display = 'flex';
+            if (error) {
+                addMessage("❌ Cabashada lama dirin. Fadlan hubi internet kaga. Isku day mar kale.", "bot");
+            } else {
+                addMessage("✅ Cabashadaada waa la diray. Mahadsanid. Waxaa kula so xeriridona Team ka CNS242 Email ahan", "bot");
+            }
+        };
+    </script>
 
-      addMessage("👋 Salaam! Fadlan nala wadaag cabashadaada si aan kuu caawinno.", "bot");
-    };
 
-    window.sendComplaint = async () => {
-      const message = document.getElementById('messageInput').value.trim();
-      if (!message) {
-        alert('Fadlan qor cabashada.');
-        return;
-      }
-
-      addMessage(message, 'user');
-
-      const { error } = await supabase
-        .from('complaints')
-        .insert([{ email, phone, message }]);
-
-      if (error) {
-        console.error(error);
-        addMessage("❌ Cabashada lama dirin. Fadlan Hubi Internet Kaga iskuna day mar kale.", "bot");
-      } else {
-        document.getElementById('messageInput').value = '';
-        addMessage("✅ Cabashadaada waa la diray. Waxaan kula soo xiriiri doonaa email ahaan. — CNS242 Team. Hdii aad cawimaad degdeg ah ubahantahay Laxeriir Muawiyah AI Bot ka si uu Kuucawiyio. Mahadsanind [#CNS242 Team]", "bot");
-      }
-    };
-  </script>
- <script>
+    <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
 
@@ -409,10 +401,7 @@
             }
         });
     </script>
-    
-  <!-- Chatbase Script -->
-  
-
- 
 </body>
+
+
 </html>
