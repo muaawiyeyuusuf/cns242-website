@@ -7,11 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       height: 100vh;
@@ -19,7 +15,6 @@
       background: linear-gradient(135deg, #dbeafe, #f0f9ff);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -31,8 +26,6 @@
     nav {
       position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       background-color: #ffffff;
       padding: 10px 30px;
       display: flex;
@@ -41,18 +34,13 @@
       height: 60px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
       z-index: 1000;
-      flex-shrink: 0;
-      transition: background 0.3s;
     }
 
     body.dark-mode nav {
       background-color: #1e3a8a;
     }
 
-    nav img {
-      height: 45px;
-      user-select: none;
-    }
+    nav img { height: 45px; }
 
     nav ul {
       list-style: none;
@@ -70,7 +58,6 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     body.dark-mode nav ul li a {
@@ -104,7 +91,6 @@
       background: #e5e7eb;
       padding: 6px 12px;
       border-radius: 20px;
-      transition: background 0.3s;
       font-weight: 600;
     }
 
@@ -126,33 +112,29 @@
       border-radius: 10px;
       cursor: pointer;
       z-index: 1001;
+      display: none;
     }
 
     .chat-container {
       flex-grow: 1;
       display: flex;
       justify-content: center;
-      align-items: stretch;
-      padding: 0;
+      padding: 10px;
       position: relative;
-      height: calc(100vh - 60px);
-      overflow: hidden;
     }
 
     .chat-box {
       width: 100%;
       max-width: 800px;
-      height: calc(100% - 60px);
-      background: white;
+      height: 85vh;
+      background: rgb(255, 255, 255);
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       border: 3px solid #0b1d3b33;
       display: flex;
       flex-direction: column;
-      position: relative;
-      margin-bottom: 13px;
-      display: none; /* Hide by default */
+      
     }
 
     .chat-welcome {
@@ -161,16 +143,9 @@
       padding: 12px 18px;
       font-size: 15px;
       font-weight: 500;
-      font-family: 'Poppins', sans-serif;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      text-align: left;
-      word-break: break-word;
-      line-height: 1.5;
+      justify-content: space-between;
     }
 
     .chat-box iframe {
@@ -178,46 +153,40 @@
       height: 100%;
       flex-grow: 1;
       border: none;
+    
     }
 
     .close-chat {
-      position: absolute;
-      top: 12px;
-      right: 15px;
       background: transparent;
       color: white;
       border: none;
       font-size: 18px;
       cursor: pointer;
-      font-weight: 700;
-      padding: 0 6px;
-      border-radius: 6px;
-      z-index: 1002;
+      font-weight: bold;
     }
 
-    .loading-spinner {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #0b1d3b;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      z-index: 100;
-    }
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(11, 29, 59, 0.7);
+  z-index: 100;
+  animation: fadeLoop 4s ease-in-out infinite;
+  opacity: 0;
+}
 
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
+@keyframes fadeLoop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+}
 
     @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
+      .hamburger { display: flex; }
 
       nav ul {
         position: absolute;
@@ -248,24 +217,9 @@
         color: white !important;
       }
 
-      .chat-container {
-        height: calc(100vh - 60px);
-        padding: 0;
-      }
-
       .chat-box {
-        max-width: 100%;
-        height: calc(100% - 40px);
+        height: 88vh;
         border-radius: 0;
-        margin-bottom: 13px;
-      }
-
-      .chat-welcome {
-        font-size: 14px;
-        padding: 10px 14px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
       }
     }
   </style>
@@ -293,10 +247,10 @@
   <div class="chat-container">
     <div class="chat-box" id="chatBox">
       <div class="chat-welcome">
-        🤖 <strong>Soo dhawoow!</strong> – waxaan ahay caawiyahaaga <strong>Muaawiya</strong>
+        🤖 <strong>Soo dhawoow! – waxaan ahay caawiyahaaga Muaawiya</strong>
         <button class="close-chat" onclick="closeChat()">X</button>
       </div>
-      <div class="loading-spinner" id="spinner"></div>
+<div class="loading-spinner" id="spinner">Cns242</div>
       <iframe
         src="https://www.chatbase.co/chatbot-iframe/44-VTW-TuiAjUkZRHdOg2"
         allow="microphone;"
@@ -308,42 +262,33 @@
 
   <footer id="footer" style="display: none;"></footer>
 
- <script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  const darkToggle = document.getElementById('darkToggle');
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const darkToggle = document.getElementById('darkToggle');
 
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-    hamburger.classList.toggle('active');
-  });
-
-  hamburger.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
+    hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('show');
       hamburger.classList.toggle('active');
+    });
+
+    darkToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkToggle.textContent = document.body.classList.contains('dark-mode') ? 'Light' : 'Dark';
+    });
+
+    function openChat() {
+      document.getElementById('chatBox').style.display = 'flex';
+      document.getElementById('startChat').style.display = 'none';
     }
-  });
 
-  darkToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    darkToggle.textContent = document.body.classList.contains('dark-mode') ? 'Light' : 'Dark';
-  });
+    function closeChat() {
+      document.getElementById('chatBox').style.display = 'none';
+      document.getElementById('startChat').style.display = 'block';
+    }
 
-  function openChat() {
-    document.getElementById('chatBox').style.display = 'flex';
-    document.getElementById('startChat').style.display = 'none';
-  }
-
-  function closeChat() {
-    document.getElementById('chatBox').style.display = 'none';
-    document.getElementById('startChat').style.display = 'block';
-  }
-
-  // **Halkan ku dar si chatka u furmo marka bogga la furo**
-  window.addEventListener('load', openChat);
-</script>
-
+    // Chatbox auto opens on page load
+    window.addEventListener('load', openChat);
+  </script>
 </body>
 </html>
