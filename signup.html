@@ -265,7 +265,7 @@
         const isVerified = urlParams.get("verified");
         if (isVerified === "true") {
             const messageDiv = document.getElementById('message');
-            messageDiv.textContent = '✅ Email-kaaga waa la xaqiijiyay. Fadlan gal akoonkaaga.';
+            messageDiv.textContent = '✅ Email-kaaga waa la xaqiijiyay. kuso dhawow  cns242.';
             messageDiv.className = 'success';
         }
     </script>
@@ -324,7 +324,7 @@
 
             const { error } = await supabase.auth.signUp(
                 { email, password },
-                { emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/lesson.html?verified=true' }
+                { emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/index.html' }
             )
 
             if (error) {
