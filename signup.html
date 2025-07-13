@@ -252,152 +252,141 @@
         <div id="message"></div>
     </div>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('show');
-        });
+   
+    </script>
 
-        // ✅ Farriinta email verification success
-        const urlParams = new URLSearchParams(window.location.search);
-        const isVerified = urlParams.get("verified");
-        if (isVerified === "true") {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = '✅ Email-kaaga waa la xaqiijiyay. kuso dhawow  cns242.';
-            messageDiv.className = 'success';
+  <script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase = createClient('https://ulmqbyydxzidqxbxrsas.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....')
+
+const signupForm = document.getElementById('signupForm');
+const loginForm = document.getElementById('loginForm');
+const resetForm = document.getElementById('resetForm');
+const toggleBtn = document.getElementById('toggleBtn');
+const toggleText = document.getElementById('toggleText');
+const formTitle = document.getElementById('formTitle');
+const messageDiv = document.getElementById('message');
+const showReset = document.getElementById('showReset');
+const backToLogin = document.getElementById('backToLogin');
+
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('show');
+});
+
+// Handle Email Confirm (hash #type=signup)
+const hashParams = new URLSearchParams(window.location.hash.substring(1));
+const type = hashParams.get('type');
+if (type === 'signup') {
+    messageDiv.innerHTML = `<i class="fas fa-check-circle"></i> Email-kaaga waa la xaqiijiyay! Hadda gali account-kaaga.`;
+    messageDiv.className = 'success';
+}
+
+// Toggle signup/login forms
+toggleBtn.onclick = () => {
+    const isSignup = signupForm.style.display !== 'none';
+    signupForm.style.display = isSignup ? 'none' : 'flex';
+    loginForm.style.display = isSignup ? 'flex' : 'none';
+    resetForm.style.display = 'none';
+    formTitle.textContent = isSignup ? 'Login' : 'Sign Up';
+    toggleText.textContent = isSignup ? "Don't have an account?" : 'Already have an account?';
+    toggleBtn.textContent = isSignup ? 'Sign Up' : 'Login';
+    messageDiv.textContent = '';
+    messageDiv.className = '';
+};
+
+// Show reset password
+showReset.onclick = () => {
+    signupForm.style.display = 'none';
+    loginForm.style.display = 'none';
+    resetForm.style.display = 'flex';
+    formTitle.textContent = 'Reset Password';
+    messageDiv.textContent = '';
+    messageDiv.className = '';
+};
+
+// Back to login from reset
+backToLogin.onclick = () => {
+    resetForm.style.display = 'none';
+    loginForm.style.display = 'flex';
+    formTitle.textContent = 'Login';
+    messageDiv.textContent = '';
+    messageDiv.className = '';
+};
+
+// Signup
+signupForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+
+    const { error } = await supabase.auth.signUp({ email, password }, {
+        emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/signup.html'
+    });
+
+    if (error) {
+        messageDiv.textContent = error.message;
+        messageDiv.className = 'error';
+    } else {
+        messageDiv.innerHTML = '<i class="fas fa-envelope"></i> Fadlan hubi email-kaaga si aad u xaqiijiso account-ka.';
+        messageDiv.className = 'success';
+        signupForm.reset();
+    }
+};
+
+// Login
+loginForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+        messageDiv.textContent = error.message;
+        messageDiv.className = 'error';
+        return;
+    }
+
+    const user = data.user;
+    if (!user.email_confirmed_at) {
+        messageDiv.textContent = '⚠️ Fadlan xaqiiji email-kaaga.';
+        messageDiv.className = 'error';
+        await supabase.auth.signOut();
+        return;
+    }
+
+    messageDiv.textContent = '✅ Login successful! Redirecting...';
+    messageDiv.className = 'success';
+
+    setTimeout(() => {
+        if (user.email === "taajirkibirsan87@gmail.com") {
+            window.location.href = 'admin-dashboard.html';
+        } else {
+            window.location.href = 'lesson.html';
         }
-    </script>
+    }, 0);
+};
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+// Reset Password
+resetForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('resetEmail').value;
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) {
+        messageDiv.textContent = error.message;
+        messageDiv.className = 'error';
+    } else {
+        messageDiv.textContent = '📧 Password reset email sent! Check your inbox.';
+        messageDiv.className = 'success';
+        resetForm.reset();
+    }
+};
+</script>
 
-        const supabase = createClient(
-            'https://ulmqbyydxzidqxbxrsas.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
-        )
-
-        const signupForm = document.getElementById('signupForm')
-        const loginForm = document.getElementById('loginForm')
-        const resetForm = document.getElementById('resetForm')
-        const toggleBtn = document.getElementById('toggleBtn')
-        const toggleText = document.getElementById('toggleText')
-        const formTitle = document.getElementById('formTitle')
-        const messageDiv = document.getElementById('message')
-        const showReset = document.getElementById('showReset')
-        const backToLogin = document.getElementById('backToLogin')
-
-        toggleBtn.addEventListener('click', () => {
-            const isSignup = signupForm.style.display !== 'none'
-            signupForm.style.display = isSignup ? 'none' : 'flex'
-            loginForm.style.display = isSignup ? 'flex' : 'none'
-            resetForm.style.display = 'none'
-            formTitle.textContent = isSignup ? 'Login' : 'Sign Up'
-            toggleText.textContent = isSignup ? "Don't have an account?" : 'Already have an account?'
-            toggleBtn.textContent = isSignup ? 'Sign Up' : 'Login'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        showReset.addEventListener('click', () => {
-            signupForm.style.display = 'none'
-            loginForm.style.display = 'none'
-            resetForm.style.display = 'flex'
-            formTitle.textContent = 'Reset Password'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        backToLogin.addEventListener('click', () => {
-            resetForm.style.display = 'none'
-            loginForm.style.display = 'flex'
-            formTitle.textContent = 'Login'
-            messageDiv.textContent = ''
-            messageDiv.className = ''
-        })
-
-        signupForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('signupEmail').value
-            const password = document.getElementById('signupPassword').value
-
-            const { error } = await supabase.auth.signUp(
-                { email, password },
-                { emailRedirectTo: 'https://muaawiyeyuusuf.github.io/cns242-website/index.html' }
-            )
-
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-            } else {
-                messageDiv.textContent = '✅ Registered! Check your email to confirm before login.'
-                messageDiv.className = 'success'
-                signupForm.reset()
-            }
-        })
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('loginEmail').value
-            const password = document.getElementById('loginPassword').value
-
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-                return
-            }
-
-            const user = data.user
-
-            if (!user.email_confirmed_at) {
-                messageDiv.textContent = '⚠️ Please confirm your email before logging in.'
-                messageDiv.className = 'error'
-                await supabase.auth.signOut()
-                return
-            }
-
-            messageDiv.textContent = '✅ Login successful! Redirecting...'
-            messageDiv.className = 'success'
-            loginForm.reset()
-
-            setTimeout(() => {
-                if (user.email === "taajirkibirsan87@gmail.com") {
-                    window.location.href = 'admin-dashboard.html'
-                } else {
-                    window.location.href = 'lesson.html'
-                }
-            }, 0)
-        })
-
-        resetForm.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const email = document.getElementById('resetEmail').value
-            const { error } = await supabase.auth.resetPasswordForEmail(email)
-            if (error) {
-                messageDiv.textContent = error.message
-                messageDiv.className = 'error'
-            } else {
-                messageDiv.textContent = '📧 Password reset email sent! Check your inbox.'
-                messageDiv.className = 'success'
-                resetForm.reset()
-            }
-        })
-
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session?.user) {
-                if (session.user.email === "taajirkibirsan87@gmail.com") {
-                    window.location.href = 'admin-dashboard.html'
-                } else {
-                    window.location.href = 'lesson.html'
-                }
-            }
-        })
-
-
-    </script>
 
 </body>
 
