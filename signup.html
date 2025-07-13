@@ -252,10 +252,18 @@
         <div id="message"></div>
     </div>
 
-   
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('show');
+        });
+
+
     </script>
 
-  <script type="module">
+<script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabase = createClient('https://ulmqbyydxzidqxbxrsas.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....')
@@ -270,13 +278,6 @@ const messageDiv = document.getElementById('message');
 const showReset = document.getElementById('showReset');
 const backToLogin = document.getElementById('backToLogin');
 
-// Hamburger menu
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('show');
-});
 
 // Handle Email Confirm (hash #type=signup)
 const hashParams = new URLSearchParams(window.location.hash.substring(1));
