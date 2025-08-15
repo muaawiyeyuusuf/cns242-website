@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    background: linear-gradient(135deg,#0b3d91,#0a6b3e); /* Dark Blue to Dark Green */
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:20px;
+    overflow-x:hidden;
+}
+
+.dashboard {
+    width:90%;
+    max-width:1200px;
+    min-height:80vh;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    color:white;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+.profile-card {
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding:15px;
+    background: rgba(255,255,255,0.15);
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    height:10%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.profile-card:hover { transform: translateY(-3px); box-shadow:0 15px 40px rgba(0,0,0,0.5); }
+
+.profile-icon {
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    overflow:hidden;
+    background: linear-gradient(135deg,#0b3d91,#0a6b3e);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    flex-shrink:0;
+}
+.profile-icon img { width:100%; height:100%; object-fit:cover; }
+
+.user-info { flex:1; display:flex; flex-direction:column; gap:5px; }
+.username { font-size:1.6em; font-weight:700; }
+.email, .bio { opacity:0.85; font-size:0.95em; }
+
+.features-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding:20px;
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow:0 12px 35px rgba(0,0,0,0.5);
+}
+
+.feature-card i {
+    font-size:2.2em;
+    color:#ffd700;
+}
+.feature-card span { font-weight:600; }
+
+.links {
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+.links a {
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:500;
+    text-decoration:none;
+    color:white;
+    background: linear-gradient(135deg,#0b3d91,#0a6b3e);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.links a:hover { transform: translateY(-3px); filter:brightness(1.15); box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.logout { background: linear-gradient(135deg,#ff4b5c,#9b0000) !important; }
+
+@media (max-width:768px) {
+    .dashboard { padding:20px; }
+    .profile-card { flex-direction:column; height:auto; gap:15px; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Profile Card -->
+    <div class="profile-card">
+        <div class="profile-icon" id="profileIcon">👤</div>
+        <div class="user-info">
+            <div class="username" id="username">Loading...</div>
+            <div class="email" id="userEmail"></div>
+            <div class="bio" id="userBio"></div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feature-card"><i class="fas fa-tasks"></i><span>Tasks</span></div>
+        <div class="feature-card"><i class="fas fa-chart-line"></i><span>Analytics</span></div>
+        <div class="feature-card"><i class="fas fa-bell"></i><span>Notifications</span></div>
+        <div class="feature-card"><i class="fas fa-cogs"></i><span>Settings</span></div>
+        <div class="feature-card"><i class="fas fa-award"></i><span>Achievements</span></div>
+        <div class="feature-card"><i class="fas fa-book"></i><span>Learning Progress</span></div>
+        <div class="feature-card"><i class="fas fa-comments"></i><span>Messages</span></div>
+        <div class="feature-card"><i class="fas fa-users"></i><span>Community</span></div>
+                    <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                  <li><a href="User Dashboard.html"><i class="fas fa-user"></i>Profile</a></li>
+                  <li><a href="ai-chat.html"><i class="fas fa-robot"></i>Talk to AI</a></li>
+      <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="lesson.html"><i class="fas fa-book"></i>Lessons</a></li>
+      <li><a href="course.html"><i class="fas fa-graduation-cap"></i>Courses</a></li>
+      <li><a href="exam-resources.html"><i class="fas fa-file-alt"></i>Resources</a></li>
+      <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
+      <li><a href="videos.html"><i class="fas fa-video"></i>Videos</a></li>
+           
+
+    </div>
+
+    <!-- Links -->
+    <div class="links">
+        <a href="home.html">🏠 Home</a>
+        <a href="profile.html">⚙️ Profile Preview</a>
+        <a href="index.html" class="logout" onclick="logout()">🚪 Logout</a>
+    </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://ulmqbyydxzidqxbxrsas.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk"; 
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function loadUser() {
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if(sessionError || !session?.user) { window.location.href="signup.html"; return; }
+    
+    const user = session.user;
+    document.getElementById("username").textContent = user.email.split("@")[0];
+    document.getElementById("userEmail").textContent = user.email;
+
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+
+    if(data) {
+        document.getElementById("userBio").textContent = data.bio || "Welcome to your dashboard";
+        if(data.img_url) { document.getElementById("profileIcon").innerHTML = `<img src="${data.img_url}">`; }
+    }
+}
+
+async function logout() {
+    await supabase.auth.signOut();
+    window.location.href="signup.html";
+}
+
+loadUser();
+</script>
+
+</body>
+</html>

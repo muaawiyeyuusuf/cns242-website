@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videos Page</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Nav Basic */
+
+/* Video Card Styles */
+.video-card { transition: transform 0.3s; }
+.video-card:hover { transform: scale(1.03); }
+.video-wrapper { position: relative; }
+.video-controls {
+    position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 6px;
+    background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 10px; z-index: 10; max-width: 95%;
+}
+.video-controls button {
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; padding: 4px; border: none; cursor: pointer;
+    border-radius: 5px; background-color: rgba(255,255,255,0.2); transition: all 0.2s ease;
+}
+.video-controls button:hover { background-color: rgba(255,255,255,0.4); transform: scale(1.1); }
+.time-display { color: white; font-size: 12px; font-weight: bold; margin-left: auto; margin-right: 4px; }
+iframe, video { width: 100%; height: auto; }
+</style>
+</head>
+<body class="bg-gray-100 font-sans p-6">
+<nav>
+    <img src="logo.PNG" alt="Logo" />
+    <div class="hamburger" id="hamburger" role="button" tabindex="0">
+        <div></div><div></div><div></div>
+    </div>
+    <ul id="navLinks">
+      <li><a href="ai-chat.html"><i class="fas fa-robot"></i>Talk to AI</a></li>
+      <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="lesson.html"><i class="fas fa-book"></i>Lessons</a></li>
+      <li><a href="course.html"><i class="fas fa-graduation-cap"></i>Courses</a></li>
+      <li><a href="exam-resources.html"><i class="fas fa-file-alt"></i>Resources</a></li>
+      <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
+      <li><a href="videos.html"><i class="fas fa-video"></i>Videos</a></li>
+                  <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                  <li><a href="User Dashboard.html"><i class="fas fa-user"></i>Profile</a></li>
+
+    </ul>
+</nav>
+<h1 class="text-3xl font-bold text-center mb-4">Videos</h1>
+<div class="flex justify-center gap-4 mb-6">
+  <button id="allBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">All</button>
+  <button id="pythonBtn" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Python</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="videoGrid"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+const SUPABASE_URL = "https://ulmqbyydxzidqxbxrsas.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allVideos = [];
+
+function formatTime(seconds){
+  const m = Math.floor(seconds/60).toString().padStart(2,'0');
+  const s = Math.floor(seconds%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
+function isSocialVideo(url){
+  return url.includes("youtube.com") || url.includes("youtu.be") || url.includes("vimeo.com");
+}
+
+function getEmbedURL(url){
+  if(url.includes("youtube.com") || url.includes("youtu.be")){
+    let id = url.split("v=")[1] || url.split("youtu.be/")[1];
+    if(id && id.includes("&")) id = id.split("&")[0];
+    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+  }
+  if(url.includes("vimeo.com")){
+    let id = url.split("/").pop();
+    return `https://player.vimeo.com/video/${id}`;
+  }
+  return url;
+}
+
+function displayVideos(videos){
+  const videoGrid = document.getElementById('videoGrid');
+  videoGrid.innerHTML = '';
+
+  videos.forEach(video=>{
+    const card = document.createElement('div');
+    card.className='video-card bg-white rounded-xl overflow-hidden shadow-md';
+
+    let isSocial = isSocialVideo(video.video_url);
+
+    if(isSocial){
+      card.innerHTML = `
+        <div class="video-wrapper relative pb-[56.25%]">
+          <iframe class="absolute top-0 left-0 w-full h-full rounded-t-xl" src="${getEmbedURL(video.video_url)}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="p-4">
+          <div class="font-bold text-lg mb-2">${video.title}</div>
+          <div class="text-gray-600 text-sm">${video.content}</div>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="video-wrapper">
+          <video src="${video.video_url}" class="w-full rounded-t-xl" muted playsinline></video>
+          <div class="video-controls">
+            <button class="playpause-btn" title="Play/Pause"><i data-feather="play"></i></button>
+            <button class="fullscreen-btn" title="Fullscreen/Minimize"><i data-feather="maximize"></i></button>
+            <button class="mute-btn" title="Mute/Unmute"><i data-feather="volume-x"></i></button>
+            <div class="time-display">00:00 / 00:00</div>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="font-bold text-lg mb-2">${video.title}</div>
+          <div class="text-gray-600 text-sm">${video.content}</div>
+        </div>
+      `;
+    }
+
+    videoGrid.appendChild(card);
+
+    if(!isSocial){
+      const videoEl = card.querySelector('video');
+      const playpauseBtn = card.querySelector('.playpause-btn');
+      const fullscreenBtn = card.querySelector('.fullscreen-btn');
+      const muteBtn = card.querySelector('.mute-btn');
+      const timeDisplay = card.querySelector('.time-display');
+
+      feather.replace();
+
+      playpauseBtn.addEventListener('click',()=>{
+        if(videoEl.paused){ videoEl.play(); playpauseBtn.querySelector('i').setAttribute('data-feather','pause'); }
+        else { videoEl.pause(); playpauseBtn.querySelector('i').setAttribute('data-feather','play'); }
+        feather.replace();
+      });
+
+      fullscreenBtn.addEventListener('click',()=>{
+        if(document.fullscreenElement){ document.exitFullscreen(); fullscreenBtn.querySelector('i').setAttribute('data-feather','maximize'); }
+        else { if(videoEl.requestFullscreen) videoEl.requestFullscreen(); fullscreenBtn.querySelector('i').setAttribute('data-feather','minimize'); }
+        feather.replace();
+      });
+
+      muteBtn.addEventListener('click',()=>{
+        videoEl.muted = !videoEl.muted;
+        muteBtn.querySelector('i').setAttribute('data-feather', videoEl.muted ? 'volume-x':'volume-2');
+        feather.replace();
+      });
+
+      videoEl.addEventListener('timeupdate',()=>{
+        timeDisplay.textContent=`${formatTime(videoEl.currentTime)} / ${formatTime(videoEl.duration||0)}`;
+      });
+    }
+  });
+}
+
+async function loadVideos(){
+  try{
+    const { data, error } = await supabaseClient.from('videos').select('*').range(0,49);
+    if(error) throw error;
+    allVideos = data;
+    displayVideos(allVideos);
+  } catch(err){
+    console.error('Error fetching videos:', err.message);
+  }
+}
+
+document.getElementById('allBtn').addEventListener('click',()=>{ displayVideos(allVideos); });
+document.getElementById('pythonBtn').addEventListener('click',()=>{
+  const pythonVideos = allVideos.filter(v => (v.title.toLowerCase().includes('python') || v.content.toLowerCase().includes('python') || v.video_url.includes('youtube.com') || v.video_url.includes('youtu.be')));
+  displayVideos(pythonVideos);
+});
+
+loadVideos();
+</script>
+
+<script>
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => { navLinks.classList.toggle('show'); hamburger.classList.toggle('active'); });
+hamburger.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault(); navLinks.classList.toggle('show'); hamburger.classList.toggle('active'); } });
+</script>
+</body>
+</html>
