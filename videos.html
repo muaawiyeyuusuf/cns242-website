@@ -10,23 +10,47 @@
 <link rel="stylesheet" href="style.css">
 <style>
 /* Nav Basic */
+nav { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; transition: 0.3s ease; }
+.hamburger div { width: 25px; height: 3px; background: #333; border-radius: 2px; transition: all 0.3s ease; }
+.hamburger.active div:nth-child(1){ transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active div:nth-child(2){ opacity:0; }
+.hamburger.active div:nth-child(3){ transform: rotate(-45deg) translate(5px,-5px); }
+#navLinks { display: flex; list-style: none; gap: 15px; }
+#navLinks li a { text-decoration: none; color: #333; font-weight: 500; }
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  
+            nav ul.show {
+                max-height: 160px;
+                padding: 8px 0;
+                overflow-y: auto;
+                /* si scroll u noqoto haddii ay liisas badan yihiin */
+            }
+  #navLinks { position: absolute; top: 60px; right: 0; background: white; flex-direction: column; width: 200px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); opacity: 0; transform: translateY(-20px); transition: all 0.4s ease; padding: 10px 0; z-index: 999; }
+  #navLinks.show { opacity: 1; transform: translateY(0); }
+  #navLinks li { padding: 10px 20px; opacity:0; transform:translateY(-10px); transition: all 0.3s ease; }
+  #navLinks.show li { opacity:1; transform:translateY(0); }
+  #navLinks.show li:nth-child(1){ transition-delay:0.05s; }
+  #navLinks.show li:nth-child(2){ transition-delay:0.1s; }
+  #navLinks.show li:nth-child(3){ transition-delay:0.15s; }
+  #navLinks.show li:nth-child(4){ transition-delay:0.2s; }
+  #navLinks.show li:nth-child(5){ transition-delay:0.25s; }
+  #navLinks.show li:nth-child(6){ transition-delay:0.3s; }
+  #navLinks.show li:nth-child(7){ transition-delay:0.35s; }
+  #navLinks.show li:nth-child(8){ transition-delay:0.4s; }
+  #navLinks.show li:nth-child(9){ transition-delay:0.45s; }
+}
 
 /* Video Card Styles */
 .video-card { transition: transform 0.3s; }
 .video-card:hover { transform: scale(1.03); }
 .video-wrapper { position: relative; }
-.video-controls {
-    position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 6px;
-    background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 10px; z-index: 10; max-width: 95%;
-}
-.video-controls button {
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 14px; padding: 4px; border: none; cursor: pointer;
-    border-radius: 5px; background-color: rgba(255,255,255,0.2); transition: all 0.2s ease;
-}
+.video-controls { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 10px; z-index: 10; max-width: 95%; }
+.video-controls button { display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; padding: 4px; border: none; cursor: pointer; border-radius: 5px; background-color: rgba(255,255,255,0.2); transition: all 0.2s ease; }
 .video-controls button:hover { background-color: rgba(255,255,255,0.4); transform: scale(1.1); }
 .time-display { color: white; font-size: 12px; font-weight: bold; margin-left: auto; margin-right: 4px; }
-iframe, video { width: 100%; height: auto; }
+iframe, video { width: 100%; height: auto; display: block; }
 </style>
 </head>
 <body class="bg-gray-100 font-sans p-6">
@@ -43,9 +67,8 @@ iframe, video { width: 100%; height: auto; }
       <li><a href="exam-resources.html"><i class="fas fa-file-alt"></i>Resources</a></li>
       <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
       <li><a href="videos.html"><i class="fas fa-video"></i>Videos</a></li>
-                  <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                  <li><a href="User Dashboard.html"><i class="fas fa-user"></i>Profile</a></li>
-
+      <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="User Dashboard.html"><i class="fas fa-user"></i>Profile</a></li>
     </ul>
 </nav>
 <h1 class="text-3xl font-bold text-center mb-4">Videos</h1>
@@ -87,54 +110,55 @@ function getEmbedURL(url){
   return url;
 }
 
+function createVideoCard(video){
+  const card = document.createElement('div');
+  card.className='video-card bg-white rounded-xl overflow-hidden shadow-md';
+  let isSocial = isSocialVideo(video.video_url);
+
+  if(isSocial){
+    card.innerHTML = `
+      <div class="video-wrapper relative pb-[56.25%]">
+        <iframe class="absolute top-0 left-0 w-full h-full rounded-t-xl" src="" data-src="${getEmbedURL(video.video_url)}" frameborder="0" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="p-4">
+        <div class="font-bold text-lg mb-2">${video.title}</div>
+        <div class="text-gray-600 text-sm">${video.content}</div>
+      </div>
+    `;
+  } else {
+    card.innerHTML = `
+      <div class="video-wrapper">
+        <video src="${video.video_url}" class="w-full rounded-t-xl" muted playsinline preload="metadata"></video>
+        <div class="video-controls">
+          <button class="playpause-btn" title="Play/Pause"><i data-feather="play"></i></button>
+          <button class="fullscreen-btn" title="Fullscreen/Minimize"><i data-feather="maximize"></i></button>
+          <button class="mute-btn" title="Mute/Unmute"><i data-feather="volume-x"></i></button>
+          <div class="time-display">00:00 / 00:00</div>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="font-bold text-lg mb-2">${video.title}</div>
+        <div class="text-gray-600 text-sm">${video.content}</div>
+      </div>
+    `;
+  }
+
+  return card;
+}
+
 function displayVideos(videos){
   const videoGrid = document.getElementById('videoGrid');
   videoGrid.innerHTML = '';
-
-  videos.forEach(video=>{
-    const card = document.createElement('div');
-    card.className='video-card bg-white rounded-xl overflow-hidden shadow-md';
-
-    let isSocial = isSocialVideo(video.video_url);
-
-    if(isSocial){
-      card.innerHTML = `
-        <div class="video-wrapper relative pb-[56.25%]">
-          <iframe class="absolute top-0 left-0 w-full h-full rounded-t-xl" src="${getEmbedURL(video.video_url)}" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="p-4">
-          <div class="font-bold text-lg mb-2">${video.title}</div>
-          <div class="text-gray-600 text-sm">${video.content}</div>
-        </div>
-      `;
-    } else {
-      card.innerHTML = `
-        <div class="video-wrapper">
-          <video src="${video.video_url}" class="w-full rounded-t-xl" muted playsinline></video>
-          <div class="video-controls">
-            <button class="playpause-btn" title="Play/Pause"><i data-feather="play"></i></button>
-            <button class="fullscreen-btn" title="Fullscreen/Minimize"><i data-feather="maximize"></i></button>
-            <button class="mute-btn" title="Mute/Unmute"><i data-feather="volume-x"></i></button>
-            <div class="time-display">00:00 / 00:00</div>
-          </div>
-        </div>
-        <div class="p-4">
-          <div class="font-bold text-lg mb-2">${video.title}</div>
-          <div class="text-gray-600 text-sm">${video.content}</div>
-        </div>
-      `;
-    }
-
+  videos.forEach(v=>{
+    const card = createVideoCard(v);
     videoGrid.appendChild(card);
 
-    if(!isSocial){
+    if(!isSocialVideo(v.video_url)){
       const videoEl = card.querySelector('video');
       const playpauseBtn = card.querySelector('.playpause-btn');
       const fullscreenBtn = card.querySelector('.fullscreen-btn');
       const muteBtn = card.querySelector('.mute-btn');
       const timeDisplay = card.querySelector('.time-display');
-
-      feather.replace();
 
       playpauseBtn.addEventListener('click',()=>{
         if(videoEl.paused){ videoEl.play(); playpauseBtn.querySelector('i').setAttribute('data-feather','pause'); }
@@ -159,6 +183,22 @@ function displayVideos(videos){
       });
     }
   });
+  feather.replace();
+  lazyLoadVideos();
+}
+
+function lazyLoadVideos(){
+  const iframes = document.querySelectorAll('iframe[data-src]');
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const iframe = entry.target;
+        iframe.src = iframe.dataset.src;
+        observer.unobserve(iframe);
+      }
+    });
+  }, { rootMargin: "200px" });
+  iframes.forEach(f=>observer.observe(f));
 }
 
 async function loadVideos(){
@@ -178,15 +218,22 @@ document.getElementById('pythonBtn').addEventListener('click',()=>{
   displayVideos(pythonVideos);
 });
 
-loadVideos();
-</script>
-
-<script>
-// Hamburger
+// Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => { navLinks.classList.toggle('show'); hamburger.classList.toggle('active'); });
-hamburger.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault(); navLinks.classList.toggle('show'); hamburger.classList.toggle('active'); } });
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+    hamburger.classList.toggle('active');
+});
+hamburger.addEventListener('keydown', e => {
+    if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        navLinks.classList.toggle('show');
+        hamburger.classList.toggle('active');
+    }
+});
+
+loadVideos();
 </script>
 </body>
 </html>
