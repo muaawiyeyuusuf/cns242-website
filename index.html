@@ -225,38 +225,77 @@
             transform: translateY(-3px) scale(1.03);
             box-shadow: 0 10px 20px rgba(6, 49, 128, 0.5);
         }
-            /* Feedback Section */
-    .feedback-section {
-      text-align: center;
-      margin: 20px 10px;
+
+        /* Feedback Section */
+        .feedback-section {
+            text-align: center;
+            margin: 20px 10px;
+        }
+
+        .feedback-section textarea {
+            width: 60%;
+            max-width: 500px;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        .feedback-section button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background: #04aa6d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .feedback-section button:hover {
+            background-color: #45a049;
+        }
+.breaking-news {
+        position: relative;
+        background: linear-gradient(90deg, #1462ff, #03056f);
+        color: white;
+        overflow: hidden;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        z-index: 2000;
     }
 
-    .feedback-section textarea {
-      width: 60%;
-      max-width: 500px;
-      height: 100px;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      resize: vertical;
+    .breaking-news::before {
+        content: "📰 NEWS";
+        background: rgb(0, 255, 145);
+        color: black;
+        padding: 0 10px;
+        margin-right: 15px;
+        font-weight: 900;
+        text-shadow: none;
+        z-index: 1;
     }
 
-    .feedback-section button {
-      margin-top: 5px;
-      padding: 5px 10px;
-      background:  #04aa6d;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+    .breaking-content {
+        white-space: nowrap;
+        display: inline-block;
+        animation: ticker 90s linear infinite;
+        padding-left: 100%;
+        font-size: 15px;
     }
 
-    .feedback-section button:hover {
-      background-color: #45a049;
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
     }
+        
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -273,13 +312,25 @@
         <ul id="navLinks">
             <li><a href="interface-ai.html"><i class="fas fa-robot"></i>Tallk to Ai</a></li>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#footer"><i class="fas fa-envelope"></i> Contact</a></li>
+
             <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i>Signup</a></li>
             <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
             <li><a href="complaints.html"><i class="fas fa-comment-dots"></i>Complaint</a></li>
-
+ <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
+
+<div class="breaking-news">
+    <div class="breaking-content">
+        🎉 UGUDAMBEYN WAXAN SOO SHACINAY VERTIONKENI LABAD, HADABA VERTIONKA MUXUU OGA DUWANYAHY MIDKI HORE. WAXAN SOO KORDHINAY:
+        1️⃣ VIDEOS PAGE OO AD KA HELI KARTAN FULL PYTHON COURSE OO FREE AH OO EY SOO XULEN DAD QIBRAD ULEH LAGANA SOO XULAY YOUTUBKA "CR WARSAME".
+        2️⃣ WAXAN KALE OO AN SOO KORDHINAY SEYSTEM SIGN UP SAHLAN OO AMAN AH QOF WALBANA ISKA DIWAN GELIN KARO.
+        3️⃣ WAXAN KALE OO AN SOO KORDHINAY PROFILE PAGE HALKAS OO AD KUGU DIYARINAY DASHBOARD QURUXBDAN, PROFILE KUSOJIDAN DONA.
+        4️⃣ WAXAN KUSOODARNAY AI CHAT BOT LAGU MAGACABO MUAWIYA CHAT BOT OO KA CAAWIN DOONA WAX WALBA OO AD UBAHATO GABIS LA AAN.
+        5️⃣ SIDO KALE WAXAN SOO KORDHINAY CONTACT PAGE KASOO AD SI TOOS AH FARIN UG SOO DIRI KARTO TEAM KA CNS242.
+        🔜 KANI WAA WEJIGENI LABAAD VERTIONS KALE OO KA SI CASRISAN NA WEY SOO SOCDAN, WANA COMING UP!
+    </div>
+</div>
 
     <section id="home">
         <h1>Cns242 E-Learning</h1>
@@ -373,12 +424,12 @@
                     studies and careers.</p>
             </div>
             <div class="footer-column">
-      <section class="feedback-section">
-                <h2>Give us your Feedback</h2>
-                <textarea id="feedbackTextarea" placeholder="Write your thoughts here..."
-                    aria-label="Feedback text area"></textarea><br />
-                <button onclick="submitFeedback()">Submit</button>
-            </section>
+                <section class="feedback-section">
+                    <h2>Give us your Feedback</h2>
+                    <textarea id="feedbackTextarea" placeholder="Write your thoughts here..."
+                        aria-label="Feedback text area"></textarea><br />
+                    <button onclick="submitFeedback()">Submit</button>
+                </section>
                 <h3>We Are</h3>
                 <p>We are second-year students at Jumhuriya University of Science and Technology, dedicated to
                     supporting new students in their academic journey.</p>
@@ -389,7 +440,7 @@
                 <i class="fas fa-arrow-up"></i> Go Up
             </a>
             <!-- Feedback Section -->
-      
+
     </footer>
 
 
@@ -484,6 +535,14 @@
             }
         }
     </script>
+     <!-- Chatbase Script -->
+  <script>
+    window.chatbaseConfig = {
+      chatbotId: "1ZpE0zl9CzKqardDgQZJ9"
+    }
+  </script>
+  <script src="https://www.chatbase.co/embed.min.js" defer></script>
+
 </body>
 
 </html>
