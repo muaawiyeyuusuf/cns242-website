@@ -1,536 +1,779 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CN E-Learning Platform</title>
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" href="style.css" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDMXCD9YY7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-BDMXCD9YY7');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYC - Networking Academy | Light</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com">
     </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'heading': ['Poppins', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* Nav Basic */
-        nav {
-            position: sticky;
-            top: 0;
-            background-color: #ffffff;
-            /* Dark Blue */
-            padding: 10px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: rgb(255, 255, 255);
-            height: 60px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-            z-index: 1000;
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+            --sky-blue: #0ea5e9;
+            --sky-light: #38bdf8;
+            --sky-gradient: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --bg-page: #f8fafc;
         }
-
-        nav img {
-            height: 45px;
-            user-select: none;
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg-page);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            margin: 0;
         }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 28px;
-            transition: max-height 0.4s ease, padding 0.4s ease;
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
         }
-
-        nav ul li a {
-            font-weight: 600;
-            font-size: 17px;
-            color: rgb(5, 28, 63);
-            /* Default link color = white */
-            padding: 6px 8px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-
-        /* Hover and Focus */
-        nav ul li a:hover,
-        nav ul li a:focus {
-            background-color: #04aa6d;
-            color: rgb(245, 246, 247);
-            outline: none;
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-color: rgba(14, 165, 233, 0.3);
+            background: rgba(255, 255, 255, 0.9);
         }
-
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 6px;
-            width: 26px;
-            height: 22px;
-            justify-content: center;
-            user-select: none;
+        .glass-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
         }
-
-        .hamburger div {
-            height: 3px;
-            background-color: rgb(12, 37, 83);
-            border-radius: 3px;
-            transition: all 0.3s ease;
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.75) 0%, rgba(241, 245, 249, 0.65) 50%, rgba(248, 250, 252, 0.8) 100%);
         }
-
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
+        .gradient-text {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8, #0284c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7dd3fc; }
 
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
+        #loading-screen {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #ffffff;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
+        #loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-ring {
+            width: 55px; height: 55px; border-radius: 50%;
+            border: 4px solid #e0f2fe; border-top-color: #0ea5e9;
+            animation: spin 0.8s linear infinite;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Responsive Navigation */
-        @media (max-width: 768px) {
-            nav ul {
-                position: absolute;
-                top: 60px;
-                right: 30px;
-                background-color: #0b1d3b;
-                flex-direction: column;
-                width: 200px;
-                max-height: 0;
-                overflow: hidden;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-                padding: 0;
-            }
-
-            nav ul.show {
-                max-height: 160px;
-                padding: 8px 0;
-                overflow-y: auto;
-                /* si scroll u noqoto haddii ay liisas badan yihiin */
-            }
-
-
-            nav ul li {
-                padding: 14px 22px;
-            }
-
-            nav ul li a {
-                font-size: 17px;
-                width: 100%;
-                color: white !important;
-                /* Mobile: link color always white */
-            }
-
-            .hamburger {
-                display: flex;
-            }
+        #student-modal-overlay {
+            position: fixed; inset: 0; z-index: 90000;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
+        #student-modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        nav.scrolled ul li a {
-            color: #0b1d3b !important;
-            /* Dark Blue links */
+        .carousel-slide {
+            position: absolute; inset: 0; opacity: 0;
+            transition: opacity 0.9s ease-in-out;
+            object-fit: cover; width: 100%; height: 100%;
         }
+        .carousel-slide.active { opacity: 1; }
 
-        /* For hover and focus in scrolled state */
-        nav.scrolled ul li a:hover,
-        nav.scrolled ul li a:focus {
-            color: #4caf50 !important;
+        #scroll-to-top {
+            position: fixed; bottom: 30px; right: 30px; z-index: 8000;
+            width: 46px; height: 46px; border-radius: 50%;
+            background: var(--sky-gradient); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: all 0.3s ease; box-shadow: 0 8px 28px rgba(14, 165, 233, 0.4);
+            border: none; font-size: 1.1rem;
         }
+        #scroll-to-top.visible { opacity: 1; visibility: visible; }
+        #scroll-to-top:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(14, 165, 233, 0.6); }
 
-    
-        #home .btn-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+        .page-section { display: none; padding-top: 4.5rem; }
+        .page-section.active { display: block; }
+
+        .btn-sky {
+            background: var(--sky-gradient); color: white;
+            transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(14,165,233,0.3);
         }
-
-        /* Buttons General */
-        #home .btn {
-            position: relative;
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fff;
-            background: linear-gradient(135deg, #04aa6d, #028e5b);
-            border: none;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 12px rgba(4, 170, 109, 0.3);
-            text-decoration: none;
-            z-index: 1;
-        }
-
-        /* Animation shine bar */
-        #home .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: skewX(-20deg);
-            transition: all 0.6s ease;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        #home .btn:hover::before {
-            left: 100%;
-        }
-
-        /* Hover effect proper */
-        #home .btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            background: linear-gradient(135deg, #05c482, #026949);
-            box-shadow: 0 10px 20px rgba(4, 170, 109, 0.5);
-            color: #fff;
-        }
-
-        /* Learn More button */
-        #home .btn.learn-more {
-            background: linear-gradient(135deg, #063180, #041f5f);
-            box-shadow: 0 4px 12px rgba(6, 49, 128, 0.3);
-        }
-
-        #home .btn.learn-more:hover {
-            background: linear-gradient(135deg, #0842a0, #031447);
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(6, 49, 128, 0.5);
-        }
-
-        /* Feedback Section */
-        .feedback-section {
-            text-align: center;
-            margin: 20px 10px;
-        }
-
-        .feedback-section textarea {
-            width: 60%;
-            max-width: 500px;
-            height: 100px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            resize: vertical;
-        }
-
-        .feedback-section button {
-            margin-top: 5px;
-            padding: 5px 10px;
-            background: #04aa6d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .feedback-section button:hover {
-            background-color: #45a049;
-        }
-.breaking-news {
-        position: relative;
-        background: linear-gradient(90deg, #1462ff, #03056f);
-        color: white;
-        overflow: hidden;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        font-weight: bold;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-        z-index: 2000;
-    }
-
-    .breaking-news::before {
-        content: "📰 NEWS";
-        background: rgb(0, 255, 145);
-        color: black;
-        padding: 0 10px;
-        margin-right: 15px;
-        font-weight: 900;
-        text-shadow: none;
-        z-index: 1;
-    }
-
-    .breaking-content {
-        white-space: nowrap;
-        display: inline-block;
-        animation: ticker 90s linear infinite;
-        padding-left: 100%;
-        font-size: 15px;
-    }
-
-    @keyframes ticker {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
-    }
-        
+        .btn-sky:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(14,165,233,0.45); }
     </style>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+<body class="bg-[#f8fafc]">
 
-<body>
-
-    <nav>
-        <img src="logo.PNG" alt="Logo" />
-        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
-            <div></div>
-            <div></div>
-            <div></div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="text-center">
+            <div class="loader-ring mx-auto mb-6"></div>
+            <p class="text-slate-800 text-lg font-semibold tracking-wider">MYC Academy</p>
+            <p class="text-slate-500 text-sm mt-2">Loading your learning dashboard...</p>
         </div>
-        <ul id="navLinks">
-            <li><a href="interface-ai.html"><i class="fas fa-robot"></i>Tallk to Ai</a></li>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+    </div>
 
-            <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i>Signup</a></li>
-            <li><a href="abbout.html"><i class="fas fa-info-circle"></i>About</a></li>
-            <li><a href="complaints.html"><i class="fas fa-comment-dots"></i>Complaint</a></li>
- <li><a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
+    <!-- Student ID Modal -->
+    <div id="student-modal-overlay" class="hidden">
+        <div class="glass-light rounded-2xl p-8 w-[95%] max-w-md text-center relative z-1 animate-slide-up bg-white/900 shadow-xl">
+            <div class="text-5xl mb-4"></div>
+            <h2 class="text-2xl font-heading font-bold text-slate-800 mb-2">Student Access</h2>
+            <p class="text-slate-600 mb-6 text-sm">Enter your Student ID to access the CNS242 CLASS.</p>
+            <input type="text" id="student-id-input" placeholder="e.g. C6230070"
+            class="w-full px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-300 transition-all text-center text-lg tracking-wider font-mono shadow-sm"
+            autocomplete="off" />
+            <button id="submit-student-id"
+            class="w-full mt-5 py-3 rounded-xl font-semibold text-white btn-sky active:scale-[0.97] flex items-center justify-center gap-2">
+            <i class="fas fa-sign-in-alt"></i> Access Platform
+            </button>
+            <p id="modal-error-msg" class="text-red-500 text-sm mt-4 hidden"></p>
+            <p class="text-slate-400 text-xs mt-5">MYC.CNS242 Class Portal</p>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
+    <div id="custom-alert-overlay" class="fixed inset-0 z-[95000] bg-black/30 backdrop-blur-sm flex items-center justify-center hidden">
+        <div class="glass-light rounded-2xl p-8 w-[95%] max-w-md text-center animate-slide-up bg-white/95 shadow-2xl">
+            <div class="text-5xl mb-4">⚠️</div>
+            <h3 class="text-xl font-heading font-bold text-slate-800 mb-3">Access Denied</h3>
+            <p id="custom-alert-message" class="text-slate-600 mb-6 text-sm leading-relaxed"></p>
+            <button id="custom-alert-close"
+            class="px-8 py-3 rounded-xl font-semibold text-white bg-red-500 hover:bg-red-600 transition-all shadow-lg active:scale-[0.96]">
+            <i class="fas fa-times-circle mr-2"></i> Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Welcome Toast -->
+    <div id="welcome-toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[85000] glass-light rounded-2xl px-6 py-4 flex items-center gap-3 transition-all duration-500 opacity-0 translate-y-[-20px] pointer-events-none bg-white/90 shadow-lg">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-check text-white"></i>
+        </div>
+        <div>
+            <p class="text-slate-800 font-semibold text-sm">Welcome!</p>
+            <p id="welcome-toast-name" class="text-sky-600 text-xs font-medium"></p>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="main-navbar" class="fixed top-0 left-0 right-0 z-[7000] glass border-b border-white/60 bg-white/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-18">
+                <a href="#" data-page="home" class="flex items-center gap-2 no-underline nav-link">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-500 flex items-center justify-center shadow-md">
+                        <i class="fas fa-network-wired text-white text-lg"></i>
+                    </div>
+                    <span class="text-slate-800 font-heading font-bold text-lg md:text-xl tracking-tight">MYC <span class="text-sky-500"> Light</span></span>
+                </a>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="#" data-page="home" class="px-4 py-2 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="#" data-page="videos" class="px-4 py-2 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link">
+                        <i class="fas fa-video"></i> Videos
+                    </a>
+                    <a href="#" data-page="contact" class="px-4 py-2 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="navbar-student-name" class="hidden md:flex items-center gap-2 text-sm text-sky-700 bg-sky-50 px-3 py-1.5 rounded-full border border-sky-200">
+                        <i class="fas fa-user-graduate"></i>
+                        <span id="display-student-name">Student</span>
+                    </span>
+                    <button id="mobile-menu-btn" class="md:hidden text-slate-700 p-2 rounded-lg hover:bg-sky-50 transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4 space-y-1">
+                <a href="#" data-page="home" class="block px-4 py-3 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#" data-page="videos" class="block px-4 py-3 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link"><i class="fas fa-video"></i> Videos</a>
+                <a href="#" data-page="contact" class="block px-4 py-3 rounded-lg text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-all font-medium text-sm flex items-center gap-2 nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                <span id="navbar-student-name-mobile" class="flex items-center gap-2 text-sm text-sky-700 bg-sky-50 px-4 py-3 rounded-lg border border-sky-200 mt-2">
+                    <i class="fas fa-user-graduate"></i>
+                    <span id="display-student-name-mobile">Student</span>
+                </span>
+            </div>
+        </div>
     </nav>
 
-<div class="breaking-news">
-    <div class="breaking-content">
-        🟢 Cns242 E-Learning Hadda Si Toos Ah Ayaa Looga Heli Karaa Google Search!
-
-Waxaan ku faraxsanahay inaan ku dhawaaqno in website-ka Cns242 E-Learning uu hadda si rasmi ah uga shaqeynayo dhammaan meelaha internet-ka, isla markaana laga heli karo Google Search si toos ah.
-Tani waa guul muhiim ah oo muujineysa horumarka aan ku tallaabsanay, iyadoo aan adeegsanay GitHub Pages oo bilaash ah.
-
-Hadda waxaad si fudud u qori kartaa erayga “Cns242 website” Google-ka, waxaana markiiba kuu soo baxaya boggeena rasmiga ah
-    </div>
-</div>
-
-    <section id="home">
-        <h1>Cns242 E-Learning</h1>
-        <p>Cns242 E-learning is a resourceful website designed for university students, especially new learners, to
-            access PDFs, past exams, and valuable course materials that support their academic growth.</p>
-
-        <div class="btn-group">
-            <a href="
-lesson.html" class="btn">Get Started</a>
-            <a href="abbout.html" class="btn learn-more">Learn More</a>
-        </div>
-    </section>
-
-    <section id="features">
-        <h2>Why Choose Us</h2>
-        <p id="qor">Our platform bridges academic knowledge and practical skills, helping you succeed from day one.</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-brain"></i>
-                <h3>Focused Learning Experience</h3>
-                <p><i class="fas fa-check-circle" style="color:#29a88a; margin-right:8px;"></i>Lessons designed to
-                    simplify challenging topics like Python programming and Academic English.</p>
+    <!-- Home Page -->
+    <section id="page-home" class="page-section active">
+        <div class="relative w-full h-screen min-h-[600px] overflow-hidden">
+            <div class="absolute inset-0">
+                <img src="https://images.pexels.com/photos/442154/pexels-photo-442154.jpeg" class="carousel-slide active" alt="Data Center">
+                <img src="https://images.pexels.com/photos/415043/pexels-photo-415043.jpeg" class="carousel-slide" alt="Technology">
+                <img src="https://images.pexels.com/photos/10259517/pexels-photo-10259517.jpeg" class="carousel-slide" alt="Network">
+                <img src="https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg" class="carousel-slide" alt="Server">
             </div>
-            <div class="feature-card">
-                <i class="fas fa-user-graduate"></i>
-                <h3>By Students, For Students</h3>
-                <p><i class="fas fa-check-circle" style="color:#29a88a; margin-right:8px;"></i>Built with real student
-                    experiences to offer what truly matters to new university learners.</p>
+            <div class="absolute inset-0 bg-white/50"></div>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white transition-all active" data-index="0"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white transition-all" data-index="1"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white transition-all" data-index="2"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white/60 hover:bg-white transition-all" data-index="3"></button>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-tools"></i>
-                <h3>Skill-Oriented Training</h3>
-                <p><i class="fas fa-check-circle" style="color:#29a88a; margin-right:8px;"></i>Practical tutorials on
-                    useful tools like Premiere Pro, CapCut, and Canva for real-world projects.</p>
+            <div class="relative z-20 flex items-center justify-center h-full px-4 text-center">
+                <div class="max-w-4xl animate-fade-in">
+                    <span class="inline-block px-4 py-1.5 rounded-full glass-light text-sky-600 text-sm font-semibold mb-6 tracking-wider bg-white/70">
+                        <i class="fas fa-graduation-cap mr-2"></i> MYC - Networking Academy
+                    </span>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold text-slate-800 mb-6 leading-tight">
+                        Master <span class="gradient-text">Networking</span> Concepts
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed color: ">
+                        Comprehensive tutorials on VLANs, Inter-VLAN Routing, Cisco Packet Tracer labs, and hands-on networking skills.
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <a href="#" data-page="videos" class="px-8 py-3.5 rounded-xl font-semibold text-white btn-sky flex items-center gap-2 nav-link">
+                            <i class="fas fa-play-circle"></i> Download Tutorials
+                        </a>
+                        <a href="#topics-section" class="px-8 py-3.5 rounded-xl font-semibold text-sky-600 bg-white/70 hover:bg-white/90 transition-all flex items-center gap-2 shadow-sm">
+                            <i class="fas fa-book-open"></i> Explore Topics
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
 
-    <section id="team">
-        <h2>Meet the Developer</h2>
-        <p>passionate students driving the platform forward.</p>
-
-
-        <div class="team-card">
-            <img src="WhatsApp Image 2025-07-03 at 11.50.10_8bf9eea5.jpg" alt="Muaawiya Yuusuf Alaso" />
-            <h3>Muaawiya Yuusuf Alaso</h3>
-            <div class="role">Student Developer</div>
-            <p>Built this platform with dedication and creativity.</p>
-            <div class="social-links">
-                <a href="https://wa.me/252619958215" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/EnaYuusufUlusow" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/taajir.kibirsan?igsh=MXJwODNsMDVsZ3FjMA==" target="_blank"><i
-                        class="fab fa-instagram"></i></a>
+        <section id="topics-section" class="py-20 md:py-28 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-sky-500 font-semibold text-sm tracking-widest uppercase">What You'll Learn</span>
+                    <h2 class="text-3xl md:text-5xl font-heading font-bold text-slate-800 mt-3 mb-4">Core Networking Topics</h2>
+                    <p class="text-slate-500 max-w-xl mx-auto">Dive deep into essential networking concepts with structured tutorials and hands-on labs.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="glass-card p-6 md:p-8 text-center group bg-white/80">
+                        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-network-wired text-3xl text-sky-500"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 mb-3">Networking Tutorials</h3>
+                        <p class="text-slate-500 text-sm">Step-by-step guides covering OSI model, IP addressing, subnetting, and network fundamentals.</p>
+                    </div>
+                    <div class="glass-card p-6 md:p-8 text-center group bg-white/80">
+                        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-layer-group text-3xl text-purple-500"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 mb-3">VLAN Concepts</h3>
+                        <p class="text-slate-500 text-sm">Understand Virtual LANs, VLAN tagging, trunking protocols, and network segmentation.</p>
+                    </div>
+                    <div class="glass-card p-6 md:p-8 text-center group bg-white/80">
+                        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-route text-3xl text-amber-500"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 mb-3">Inter-VLAN Routing</h3>
+                        <p class="text-slate-500 text-sm">Master router-on-a-stick and Layer 3 switching for seamless VLAN communication.</p>
+                    </div>
+                    <div class="glass-card p-6 md:p-8 text-center group bg-white/80">
+                        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-laptop-code text-3xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-slate-800 mb-3">Packet Tracer Labs</h3>
+                        <p class="text-slate-500 text-sm">Practical Cisco Packet Tracer lab exercises with real-world simulation scenarios.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
-    </section>
+        </section>
 
-    <footer id="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>Our Contact</h3>
-                <ul>
-                    <a href="https://wa.me/252619958215" target="_blank"><i class="fab fa-whatsapp" ,
-                            style="font-size: 250%; margin: 5%; color: #29a88a;;"></i></a>
-
-                    <a href="https://www.facebook.com/EnaYuusufUlusow" target="_blank"><i class="fab fa-facebook-f" ,
-                            style="font-size: 250%;  margin: 5%; color: #29a88a;;"></i></a>
-
-                    <a href="https://www.instagram.com/taajir.kibirsan?igsh=MXJwODNsMDVsZ3FjMA==" target="_blank"><i
-                            class="fab fa-instagram" , style="font-size: 250%; margin: 5%; color: #29a88a;;"></i></a>
-
-                    <a href="tel:+252617392380"><i class="fas fa-phone"
-                            style="font-size: 250%; margin: 5%; color: #29a88a;;"></i>
+        <section class="py-16 md:py-24 px-4 bg-white/40">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div class="animate-slide-up">
+                    <span class="text-sky-500 font-semibold text-sm tracking-widest uppercase">Featured Lab</span>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-800 mt-3 mb-6">Advanced VLAN Configuration Lab</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6">Configure multiple VLANs, trunk ports, and Inter-VLAN routing using Cisco Packet Tracer.</p>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-sky-500 mt-1"></i><span>Configure up to 10 VLANs</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-sky-500 mt-1"></i><span>Set up 802.1Q trunking</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check-circle text-sky-500 mt-1"></i><span>Implement Router-on-a-Stick</span></li>
+                    </ul>
+                    <a href="https://www.transfernow.net/dl/20260604i7LDvLvn"class="inline-flex items-center gap-2 mt-8 px-7 py-3 rounded-xl font-semibold text-white btn-sky nav-link">
+                        <i class="fas fa-download"></i> Get Lab Files
                     </a>
+                </div>
+                <div class="glass-card p-2 overflow-hidden">
+                    <div class="rounded-xl overflow-hidden aspect-video flex items-center justify-center bg-slate-100">
+                        <img src="https://i.pinimg.com/736x/65/53/66/655366d63fcb51fee1f0704577bee330.jpg" alt="Lab" class="w-full h-full object-cover rounded-xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
 
-                    <li><a href="tel:+252617392380">Quick Call</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Extra Skills</h3>
-                <ul>
-                    <li><a href="signup.html">Premiere Pro</a></li>
-                    <li><a href="signup.html">CapCut</a></li>
-                    <li><a href="signup.html">Canva</a></li>
-                    <li><a href="signup.html">Video Editing</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Our Mission</h3>
-                <p>To empower university students with practical knowledge and digital skills for success in their
-                    studies and careers.</p>
-            </div>
-            <div class="footer-column">
-                <section class="feedback-section">
-                    <h2>Give us your Feedback</h2>
-                    <textarea id="feedbackTextarea" placeholder="Write your thoughts here..."
-                        aria-label="Feedback text area"></textarea><br />
-                    <button onclick="submitFeedback()">Submit</button>
-                </section>
-                <h3>We Are</h3>
-                <p>We are second-year students at Jumhuriya University of Science and Technology, dedicated to
-                    supporting new students in their academic journey.</p>
+    <!-- Video Page -->
+    <section id="page-videos" class="page-section">
+        <div class="relative pt-8 pb-12 md:pt-12 md:pb-16 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <span class="inline-block px-4 py-1.5 rounded-full glass-light text-sky-600 text-sm font-semibold mb-4 bg-white/80"><i class="fas fa-video mr-2"></i> Video Library</span>
+                <h1 class="text-3xl md:text-5xl font-heading font-bold text-slate-800 mb-4">Download <span class="gradient-text">Networking Tutorials</span></h1>
+                <p class="text-slate-500 max-w-xl mx-auto mb-8">Access all MYC.CNS242 video lectures, lab demonstrations, and Packet Tracer walkthroughs.</p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-2xl mx-auto">
+                    <div class="relative flex-1 w-full">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="video-search" placeholder="Search videos..." class="w-full pl-11 pr-5 py-3 rounded-xl glass-light text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all border border-slate-200 bg-white/80">
+                    </div>
+                    <select id="category-filter" class="px-5 py-3 rounded-xl glass-light text-slate-800 border border-slate-200 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all cursor-pointer bg-white/80 min-w-[160px]">
+                        <option value="all">All Categories</option>
+                        <option value="vlan">VLAN Concepts</option>
+                        <option value="routing">Inter-VLAN Routing</option>
+                        <option value="packet-tracer">Packet Tracer Labs</option>
+                        <option value="fundamentals">Networking Fundamentals</option>
+                    </select>
+                </div>
             </div>
         </div>
-        
-        <span>
-            <a href="index.html" class="go-back-btnn">
-                <i class="fas fa-arrow-up"></i> Go Up
-            </a>
-            <!-- Feedback Section -->
+        <section class="py-8 md:py-12 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div id="video-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
+                <div id="no-results-message" class="text-center py-16 hidden">
+                    <i class="fas fa-search text-5xl text-slate-300 mb-4"></i>
+                    <p class="text-slate-500 text-lg">No videos found.</p>
+                    <button id="clear-search" class="mt-4 px-6 py-2.5 rounded-xl glass-light text-sky-600 hover:text-sky-800 hover:bg-sky-50 transition-all text-sm font-medium bg-white/80"><i class="fas fa-times-circle mr-2"></i> Clear Filters</button>
+                </div>
+            </div>
+        </section>
+    </section>
 
+    <!-- Contact Page -->
+    <section id="page-contact" class="page-section">
+        <div class="relative pt-8 pb-12 md:pt-12 md:pb-16 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <span class="inline-block px-4 py-1.5 rounded-full glass-light text-sky-600 text-sm font-semibold mb-4 bg-white/80"><i class="fas fa-envelope mr-2"></i> Get In Touch</span>
+                <h1 class="text-3xl md:text-5xl font-heading font-bold text-slate-800 mb-4">Contact <span class="gradient-text">MYC</span> Academy</h1>
+                <p class="text-slate-500 max-w-xl mx-auto">Have questions? Reach out and we'll respond promptly.</p>
+            </div>
+        </div>
+        <section class="py-8 md:py-12 px-4">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="glass-card p-6 md:p-8 bg-white/80">
+                        <h3 class="text-xl font-heading font-bold text-slate-800 mb-6"><i class="fas fa-paper-plane text-sky-500 mr-2"></i> Send Us a Message</h3>
+                        <form id="contact-form" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div><label for="full-name" class="block text-sm text-slate-600 mb-2 font-medium">Full Name <span class="text-red-400">*</span></label><input type="text" id="full-name" required placeholder="Your full name" class="w-full px-4 py-3 rounded-xl glass-light text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all border border-slate-200 bg-white/80"></div>
+                                <div><label for="email" class="block text-sm text-slate-600 mb-2 font-medium">Email <span class="text-red-400">*</span></label><input type="email" id="email" required placeholder="your.email@example.com" class="w-full px-4 py-3 rounded-xl glass-light text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all border border-slate-200 bg-white/80"></div>
+                            </div>
+                            <div><label for="phone" class="block text-sm text-slate-600 mb-2 font-medium">Phone Number <span class="text-red-400">*</span></label><input type="tel" id="phone" required placeholder="+252 61 2345678" class="w-full px-4 py-3 rounded-xl glass-light text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all border border-slate-200 bg-white/80"></div>
+                            <div><label for="message" class="block text-sm text-slate-600 mb-2 font-medium">Your Message <span class="text-red-400">*</span></label><textarea id="message" required rows="5" placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl glass-light text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all border border-slate-200 bg-white/80 resize-none"></textarea></div>
+                            <button type="submit" class="w-full py-3.5 rounded-xl font-semibold text-white btn-sky flex items-center justify-center gap-2 text-lg">
+                                <i class="fab fa-whatsapp text-xl"></i> Send via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="space-y-5">
+                    <div class="glass-card p-6 text-center bg-white/80">
+                        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center"><i class="fas fa-phone text-2xl text-sky-500"></i></div>
+                        <h4 class="text-slate-800 font-heading font-semibold mb-2">Call Us</h4>
+                        <p class="text-slate-500 text-sm">+252 68 454 9944</p>
+                        <a href="tel:+252684549944" class="inline-block mt-2 text-sky-500 text-sm hover:text-sky-600"><i class="fas fa-arrow-right mr-1"></i> Dial Now</a>
+                    </div>
+                    <div class="glass-card p-6 text-center bg-white/80">
+                        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center"><i class="fab fa-whatsapp text-2xl text-green-500"></i></div>
+                        <h4 class="text-slate-800 font-heading font-semibold mb-2">WhatsApp</h4>
+                        <p class="text-slate-500 text-sm">Quick response via WhatsApp</p>
+                        <a href="https://wa.me/252684549944" target="_blank" class="inline-block mt-2 text-green-500 text-sm hover:text-green-600"><i class="fas fa-arrow-right mr-1"></i> Chat Now</a>
+                    </div>
+                    <div class="glass-card p-6 text-center bg-white/80">
+                        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center"><i class="fas fa-map-marker-alt text-2xl text-amber-500"></i></div>
+                        <h4 class="text-slate-800 font-heading font-semibold mb-2">Location</h4>
+                        <p class="text-slate-500 text-sm">JUST Networking Lab</p>
+                        <p class="text-slate-400 text-xs mt-1">Mogadishu, Somalia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-8 md:py-12 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="glass-card overflow-hidden p-2">
+                    <div class="rounded-xl overflow-hidden bg-slate-100 w-full h-[350px] md:h-[400px] flex items-center justify-center relative">
+                        <div class="text-center z-10">
+                            <i class="fas fa-map-marked-alt text-6xl text-sky-300/70 mb-4"></i>
+                            <p class="text-slate-500 text-lg font-heading font-semibold">MYC Academy Location</p>
+                            <p class="text-slate-400 text-sm mt-1">Mogadishu, Somalia</p>
+                            <a href="https://www.google.com/maps/place/Jamhuriya+University+of+Science+%26+Technology+(JUST)/@2.0362927,45.2992535,18.6z/data=!4m6!3m5!1s0x3d5843952199da3f:0xfdb54d6fa58fe263!8m2!3d2.0364737!4d45.3006357!16s%2Fg%2F11fsjph6rs?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl glass-light text-sky-600 hover:text-sky-800 hover:bg-sky-50 transition-all text-sm bg-white/80"><i class="fas fa-external-link-alt"></i> Open in Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+<body class="hidden" id="mainBody"></body>
+    <!-- Footer -->
+    <footer class="glass border-t border-white/70 py-12 md:py-16 px-4 bg-white/80">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-blue-500 flex items-center justify-center shadow-md"><i class="fas fa-network-wired text-white"></i></div>
+                    <span class="text-slate-800 font-heading font-bold text-xl">MYC<span class="text-sky-500">Light</span></span>
+                </div>
+                <p class="text-slate-500 text-sm">A comprehensive networking academy focused on basic networking concepts, routing fundamentals, and hands-on practice using Cisco Packet Tracer.</p>
+            </div>
+            <div>
+                <h4 class="text-slate-800 font-heading font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2.5">
+                    <li><a href="#" data-page="home" class="text-slate-500 hover:text-sky-600 text-sm flex items-center gap-2 nav-link"><i class="fas fa-chevron-right text-xs"></i> Home</a></li>
+                    <li><a href="#" data-page="videos" class="text-slate-500 hover:text-sky-600 text-sm flex items-center gap-2 nav-link"><i class="fas fa-chevron-right text-xs"></i> Video Downloads</a></li>
+                    <li><a href="#" data-page="contact" class="text-slate-500 hover:text-sky-600 text-sm flex items-center gap-2 nav-link"><i class="fas fa-chevron-right text-xs"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-slate-800 font-heading font-semibold mb-4">Connect</h4>
+                <div class="flex gap-3 flex-wrap">
+                    <a href="https://www.facebook.com/share/1CYoWpaDhF/" target="_blank" class="w-11 h-11 rounded-xl glass-light flex items-center justify-center text-slate-500 hover:text-sky-600 hover:bg-sky-50 bg-white/80"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/in/muawiya-yusuf-also-6982053a9?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="w-11 h-11 rounded-xl glass-light flex items-center justify-center text-slate-500 hover:text-sky-600 hover:bg-sky-50 bg-white/80"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/muawiyayusuf.official?igsh=OGZ3N3A4ZnFicXhh" target="_blank" class="w-11 h-11 rounded-xl glass-light flex items-center justify-center text-slate-500 hover:text-sky-600 hover:bg-sky-50 bg-white/80"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/252684549944" target="_blank" class="w-11 h-11 rounded-xl glass-light flex items-center justify-center text-slate-500 hover:text-green-500 hover:bg-green-50 bg-white/80"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <p class="text-slate-400 text-xs mt-5">© 2026 MYC Academy</p>
+            </div>
+        </div>
     </footer>
-<script src='https://cdn.jotfor.ms/agent/embedjs/0198ad1240f47f379f0e863a0e22db394bfb/embed.js'>
-</script>
 
+    <button id="scroll-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- ==================== FIXED JAVASCRIPT ==================== -->
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+        // ============ STUDENT VALIDATION ============
+        (function() {
+            const studentDB = {
+                'C6230070': 'Mahad Hassan Adan', 'C6230079': 'Aisho Abdirahman Hassan', 'C6240067': 'Muse Abdulkadir Abdi',
+                'C6240074': 'Sadak Abdullahi Bare', 'C6240076': 'Sabirin Adam Dirie', 'C6240079': 'Osman Farah Hassan',
+                'C6240084': 'Rukia Yusuf Mohamed', 'C6240089': 'Mohamed Abdullahi Mohamed', 'C6240090': 'Mohamud Adan Fidow',
+                'C6240092': 'Mustaf Omar Isak', 'C6240094': 'Mohamed Adam Iman', 'C6240099': 'Abdiaziz Abdullahi Gedi',
+                'C6240113': 'Siraji Abdi Mohamed', 'C6240118': 'Yahye Farah Ise', 'C6240120': 'Mohamed Abdikarim Mohamed',
+                'C6240121': 'Ali Ahmed Shire', 'C6240122': 'Zakarie Abdirisak Hassan', 'C6240124': 'Abdirahman Mohamed Hassan',
+                'C6240130': 'Sharmake Abdi Said', 'C6240137': 'Rukia Garad Farah', 'C6240145': 'Sabirin Mohamed Hersi',
+                'C6240147': 'Naima Hassan Dirie', 'C6240150': 'Abdirahman Mahad Omar', 'C6240151': 'Khalid Abdullahi Mohamed',
+                'C6240152': 'Abdullahi Mursal Farah', 'C6240156': 'Hamdi Ali Hashi', 'C6240157': 'Siham Abdullahi Mohamed',
+                'C6240166': 'Ibrahim Dahir Muse', 'C6240167': 'Ahmed Mohamed Ahmed', 'C6240173': 'Suweys Sharif Nur',
+                'C6240174': 'Aamir Ahmed Muhidin', 'C6240179': 'Ilyas Ibrahim Yusuf', 'C6240184': 'Abdiwali Abdukadir Abdi',
+                'C6240239': 'Sabirin Abdullahi Ali', 'C6240255': 'Shafie Sharif Mohamed', 'C6240257': 'Abdukadir Artan Abdi',
+                'C6240263': 'Ayanle Khalif Hirsi', 'C6240264': 'Fatima Abdinor Ali', 'C6240269': 'Fadumo Nur Mohamud',
+                'C6240275': 'Mustaf Burhan Ahmed', 'C6240277': 'Abdullahi Mohamed Salad', 'C6240278': 'Khadar Abdikadir Abdi',
+                'C6240280': 'Mohamed Ahmed Abdullahi', 'C6240282': 'Safi Abdullahi Mohamed', 'C6240285': 'Abukar Mohamed Ahmed',
+                'C6240289': 'Abdishakur Omar Mohamud', 'C6240295': 'Abdikani Mohamed Abdulle', 'C6240296': 'Abdullahi Ali Hussein',
+                'C6240324': 'Ali Mohamed Ali', 'C6240326': 'Hassan Mahad Nur', 'C6240327': 'Abdikafi Hassan Ahmed',
+                'C6240328': 'Abdirahman Omar Hussein', 'C6240335': 'Musab Abdi Mohamud', 'C6240348': 'Zubeyr Abdikani Ali',
+                'C6240350': 'Abdishakur Ibrahim Abdi', 'C6240357': 'Mahad Ali Jodah', 'C6240358': 'Muawiye Yusuf Alasow',
+                'C6240399': 'Isse Ali Mohamed', 'C6240401': 'Aisha Omar Abdukadir', 'C6240407': 'Mohamed Hassan Muse',
+                'C6240415': "Ma'ida Mohamed Abdulkarim", 'C6240421': 'Ubah Dahir Omar', 'C6240422': 'Abdikarim Adan Wehliye',
+                'C6240425': 'Hussein Dahir Osman', 'C6240427': 'Salma Abdiweli Ali'
+            };
+            const INSTRUCTOR_CONTACT = '252684549944';
+            const modalOverlay = document.getElementById('student-modal-overlay');
+            const studentIdInput = document.getElementById('student-id-input');
+            const submitBtn = document.getElementById('submit-student-id');
+            const modalError = document.getElementById('modal-error-msg');
+            const customAlertOverlay = document.getElementById('custom-alert-overlay');
+            const customAlertMsg = document.getElementById('custom-alert-message');
+            const welcomeToast = document.getElementById('welcome-toast');
+            const welcomeToastName = document.getElementById('welcome-toast-name');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-            hamburger.classList.toggle('active');
-        });
+            function updateNavbarName(name) {
+                document.getElementById('display-student-name').textContent = name;
+                document.getElementById('display-student-name-mobile').textContent = name;
+                document.getElementById('navbar-student-name').style.display = 'flex';
+                document.getElementById('navbar-student-name-mobile').style.display = 'flex';
+            }
 
-        // Keyboard accessibility
-        hamburger.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            function showToast(name) {
+                welcomeToastName.textContent = name;
+                welcomeToast.classList.remove('opacity-0', 'translate-y-[-20px]', 'pointer-events-none');
+                setTimeout(() => {
+                    welcomeToast.classList.add('opacity-0', 'translate-y-[-20px]');
+                    setTimeout(() => welcomeToast.classList.add('pointer-events-none'), 500);
+                }, 2000);
+            }
+
+            function showCustomAlert(msg) {
+                customAlertMsg.textContent = msg;
+                customAlertOverlay.classList.remove('hidden');
+            }
+
+            function validateAndLogin() {
+                const id = studentIdInput.value.trim().toUpperCase();
+                modalError.classList.add('hidden');
+                if (!id) {
+                    modalError.textContent = 'Please enter your Student ID.';
+                    modalError.classList.remove('hidden');
+                    return;
+                }
+                if (studentDB.hasOwnProperty(id)) {
+                    const name = studentDB[id];
+                    sessionStorage.setItem('cns242_name', name);
+                    sessionStorage.setItem('cns242_id', id);
+                    modalOverlay.classList.add('hidden');
+                    updateNavbarName(name);
+                    showToast(name);
+                } else {
+                    showCustomAlert('You are not a student of CNS242 Class. Please contact this number: ' + INSTRUCTOR_CONTACT);
+                    modalError.textContent = 'Invalid Student ID.';
+                    modalError.classList.remove('hidden');
+                    studentIdInput.value = '';
+                    studentIdInput.focus();
+                }
+            }
+
+            submitBtn.addEventListener('click', validateAndLogin);
+            studentIdInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') validateAndLogin(); });
+            document.getElementById('custom-alert-close').addEventListener('click', () => customAlertOverlay.classList.add('hidden'));
+            customAlertOverlay.addEventListener('click', (e) => { if (e.target === customAlertOverlay) customAlertOverlay.classList.add('hidden'); });
+
+            function checkSession() {
+                const storedName = sessionStorage.getItem('cns242_name');
+                if (storedName) {
+                    updateNavbarName(storedName);
+                    modalOverlay.classList.add('hidden');
+                } else {
+                    modalOverlay.classList.remove('hidden');
+                    studentIdInput.focus();
+                }
+            }
+            setTimeout(checkSession, 1200);
+        })();
+
+        // ============ MAIN APPLICATION ============
+        (function() {
+            const loader = document.getElementById('loading-screen');
+            function hideLoader() { if (loader && !loader.classList.contains('hidden')) loader.classList.add('hidden'); }
+            window.addEventListener('load', () => setTimeout(hideLoader, 500));
+            setTimeout(hideLoader, 2000);
+
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                }));
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+                        mobileMenu.classList.add('hidden');
+                        menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                    }
+                });
+            }
+
+            const sections = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            function navigateTo(page) {
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById('page-' + page).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                navLinks.forEach(link => {
+                    link.classList.remove('text-sky-600', 'bg-sky-50');
+                    if (link.getAttribute('data-page') === page) {
+                        link.classList.add('text-sky-600', 'bg-sky-50');
+                    }
+                });
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                }
+            }
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const page = this.getAttribute('data-page');
+                    if (page) { e.preventDefault(); navigateTo(page); }
+                });
+            });
+            document.querySelector('.nav-link[data-page="home"]')?.classList.add('text-sky-600', 'bg-sky-50');
+
+            // Carousel
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            if (slides.length && dots.length) {
+                let current = 0, interval;
+                function showSlide(index) {
+                    slides.forEach(s => s.classList.remove('active'));
+                    dots.forEach(d => { d.classList.remove('active', 'bg-white'); d.classList.add('bg-white/100'); });
+                    slides[index].classList.add('active');
+                    dots[index].classList.add('active', 'bg-white');
+                    current = index;
+                }
+                function nextSlide() { showSlide((current + 1) % slides.length); }
+                function startAuto() { stopAuto(); interval = setInterval(nextSlide, 2000); }
+                function stopAuto() { if (interval) clearInterval(interval); }
+                dots.forEach(dot => dot.addEventListener('click', function() {
+                    const i = parseInt(this.getAttribute('data-index'));
+                    if (!isNaN(i)) { showSlide(i); startAuto(); }
+                }));
+                startAuto();
+                const hero = document.querySelector('#page-home .relative');
+                if (hero) { hero.addEventListener('mouseenter', stopAuto); hero.addEventListener('mouseleave', startAuto); }
+            }
+
+            const scrollBtn = document.getElementById('scroll-to-top');
+            if (scrollBtn) {
+                window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400), { passive: true });
+                scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            // ============ VIDEO DATA WITH UNIQUE LINKS ============
+            const videoData = [
+                {
+                    title: "Inter VLAN Routing using Router on Stick",
+                    subtitle: "Learn the fundamentals of Virtual LANs, VLAN tagging, and network segmentation.",
+                    category: "routing",
+                    thumbnail: "https://i.pinimg.com/736x/cd/4c/8d/cd4c8db4734c68e7e7b11136b1fe5d6b.jpg",
+                    downloadLink: "https://www.transfernow.net/dl/20260604PPWMjEEQ",
+                    icon: "fa-layer-group",
+                    iconBg: "from-purple-100 to-pink-100",
+                    iconColor: "text-purple-500",
+                    author: "Muawiya Yusuf"
+                },
+              
+            ];
+
+            function renderVideoCards(filtered) {
+                const container = document.getElementById('video-cards-container');
+                const noRes = document.getElementById('no-results-message');
+                if (!container) return;
+                container.innerHTML = '';
+                if (filtered.length === 0) {
+                    noRes.classList.remove('hidden');
+                    container.classList.add('hidden');
+                } else {
+                    noRes.classList.add('hidden');
+                    container.classList.remove('hidden');
+                    filtered.forEach(v => {
+                        const card = document.createElement('div');
+                        card.className = 'glass-card overflow-hidden group flex flex-col bg-white/80';
+                        card.innerHTML = `
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="${v.thumbnail}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/600x340/f1f5f9/0ea5e9?text=${v.title.replace(/\s+/g, '+')}'">
+                            <div class="absolute top-3 left-3 w-9 h-9 rounded-lg bg-gradient-to-br ${v.iconBg} flex items-center justify-center">
+                                <i class="fas ${v.icon} ${v.iconColor} text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="p-5 md:p-6 flex flex-col flex-1">
+                            <h3 class="text-lg font-heading font-bold text-slate-800 mb-2 line-clamp-2">${v.title}</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">${v.subtitle}</p>
+                            <a href="${v.downloadLink}" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-white btn-sky text-sm">
+                                <i class="fas fa-download"></i> Download Video
+                            </a>
+                            <p class="text-xs text-slate-500 mt-2">Video prepared by: ${v.author}</p>
+                        </div>`;
+                        container.appendChild(card);
+                    });
+                }
+            }
+
+            function filterVideos() {
+                const search = document.getElementById('video-search')?.value.toLowerCase().trim() || '';
+                const cat = document.getElementById('category-filter')?.value || 'all';
+                let filtered = videoData;
+                if (cat !== 'all') filtered = filtered.filter(v => v.category === cat);
+                if (search) filtered = filtered.filter(v => v.title.toLowerCase().includes(search) || v.subtitle.toLowerCase().includes(search));
+                renderVideoCards(filtered);
+            }
+
+            document.getElementById('video-search')?.addEventListener('input', filterVideos);
+            document.getElementById('category-filter')?.addEventListener('change', filterVideos);
+            document.getElementById('clear-search')?.addEventListener('click', () => {
+                document.getElementById('video-search').value = '';
+                document.getElementById('category-filter').value = 'all';
+                filterVideos();
+            });
+            if (document.getElementById('video-cards-container')) renderVideoCards(videoData);
+
+            // Contact form WhatsApp
+            document.getElementById('contact-form')?.addEventListener('submit', function(e) {
                 e.preventDefault();
-                navLinks.classList.toggle('show');
-                hamburger.classList.toggle('active');
-            }
-        });
+                const name = document.getElementById('full-name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const msg = document.getElementById('message').value.trim();
+                if (!name || !email || !phone || !msg) { alert('⚠️ Please fill in all required fields.'); return; }
+                const text = `*New Contact Form Submission - MYC Academy*%0A%0A *Full Name:* ${encodeURIComponent(name)}%0A *Email:* ${encodeURIComponent(email)}%0A *Phone:* ${encodeURIComponent(phone)}%0A *Message:*%0A${encodeURIComponent(msg)}%0A%0A---%0A_Sent from MYC Academy_`;
+                window.open(`https://wa.me/252684549944?text=${text}`, '_blank');
+                const btn = this.querySelector('button[type="submit"]');
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!';
+                btn.classList.add('bg-green-500');
+                setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('bg-green-500'); this.reset(); }, 1500);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.getElementById('custom-alert-overlay')?.classList.add('hidden');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                    }
+                }
+            });
+
+            console.log('✅ CNS242 Academy - Unique download links per video verified');
+        })();
     </script>
-    <script>
-        const images = ["foot.jpg","slideimg1.jpg", "slideimg2.jpg", "slideimg3.jpg", "slideimg4.jpg", "slideimg5.jpg", "slideimg6.png", "slideimg7.jpg"];
-
-        const home = document.getElementById("home");
-
-        // Create two layers
-        const bg1 = document.createElement("div");
-        const bg2 = document.createElement("div");
-
-        bg1.classList.add("bg-overlay", "active");
-        bg2.classList.add("bg-overlay");
-
-        home.prepend(bg1);
-        home.prepend(bg2);
-
-        let currentIndex = 0;
-        let showingBg1 = true;
-
-        function setBackground(el, img) {
-            el.style.backgroundImage = `linear-gradient(rgba(9, 5, 54, 0.637), rgba(4, 43, 46, 0.5)), url('${img}')`;
-        }
-
-        setBackground(bg1, images[0]);
-        setBackground(bg2, images[1]);
-
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % images.length;
-            const nextImg = images[(currentIndex + 1) % images.length];
-
-            if (showingBg1) {
-                setBackground(bg2, images[currentIndex]);
-                bg2.classList.add("active");
-                bg1.classList.remove("active");
-            } else {
-                setBackground(bg1, images[currentIndex]);
-                bg1.classList.add("active");
-                bg2.classList.remove("active");
-            }
-
-            showingBg1 = !showingBg1;
-        }, 4000);
-    </script>
-
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-        const supabase = createClient(
-            'https://ulmqbyydxzidqxbxrsas.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbXFieXlkeHppZHF4Ynhyc2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAwNzQsImV4cCI6MjA2NzQ5NjA3NH0.0aqAbrCo8oyMOq78mFl92fT6y4K6Uq6nlj6AZEVGXuk'
-        );
-
-        window.submitFeedback = async function () {
-            const textarea = document.getElementById('feedbackTextarea');
-            const message = textarea.value.trim();
-
-            if (!message) {
-                alert('Please write something before submitting.');
-                return;
-            }
-
-            const email = (await supabase.auth.getUser()).data?.user?.email || null;
-
-            const { error } = await supabase.from('feedback').insert([{ email, message }]);
-
-            if (error) {
-                alert('❌ Failed to send feedback: ' + error.message);
-            } else {
-                alert('✅ Feedback submitted successfully!');
-                textarea.value = '';
-            }
-        }
-    </script>
-<script src='https://cdn.jotfor.ms/agent/embedjs/0198ad1240f47f379f0e863a0e22db394bfb/embed.js?isVoice=1'></script>
-
+    <script src='https://cdn.jotfor.ms/agent/embedjs/0198ad1240f47f379f0e863a0e22db394bfb/embed.js?isVoice=1'></script>
 </body>
-
 </html>
-
